@@ -21,25 +21,31 @@ const UserSchema = new mongoose.Schema(
     img: {
       type: String,
     },
+    sellerBlance: {
+      type: Number,
+      default:0,
+    },
     wallet: {
       balance: {
         type: Number,
         default: 10000,
       },
       walletId: mongoose.ObjectId,
-
+      amountsfrom: {
+        type: Number,
+      },
       sends: [
         {
-          amountsentAmountsent: {
+          amountsent: {
             type: Number,
           },
-          reciverId: {
-            type:String
+          reciverAc: {
+            type: String,
           },
           senderId: {
-            type: String
+            type: String,
           },
-          senderNmae: {
+          senderName: {
             type: String,
           },
           receiverNmae: {
@@ -58,6 +64,10 @@ const UserSchema = new mongoose.Schema(
           },
           senderNmae: {
             type: String,
+          },
+          dateRecived: {
+            type: Date,
+            default: Date.now,
           },
         },
         { timestamps: true },

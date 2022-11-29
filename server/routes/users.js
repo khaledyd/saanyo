@@ -9,7 +9,8 @@ import {
   dislike,
   crateOrder,
   buysomethingnow,
-  sendMoney,
+  sendMoney
+
 } from "../controllers/user.js";
 import { verifyToken } from "../verifyToken.js";
 
@@ -35,7 +36,7 @@ router.put("/like/:videoId", verifyToken, like);
 
 //dislike a video
 router.put("/dislike/:videoId", verifyToken, dislike);
-router.post("/", verifyToken, crateOrder);
-router.put("/purchases/:id", verifyToken, buysomethingnow);
-router.put("/sendmoney/:id", verifyToken, sendMoney);
+router.post("/createorder/:id", verifyToken, crateOrder);
+router.put("/buysomethingnow/:id", verifyToken, buysomethingnow);
+router.put("/sendMoney/:id", sendMoney);
 export default router;

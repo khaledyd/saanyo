@@ -105,7 +105,7 @@ export const dislike = async (req, res, next) => {
 };
 //create Orders
 export const crateOrder = async (req, res, next) => {
-  const NewOrder = new Orders({ userId: req.user.id, ...req.body });
+  const NewOrder = new Orders({ userId: req.params.id, ...req.body });
   try {
     const savedOrder = await NewOrder.save();
     res.status(200).json(savedOrder);
@@ -115,67 +115,190 @@ export const crateOrder = async (req, res, next) => {
 };
 // make purchase
 export const buysomethingnow = async (req, res) => {
-  try {
-    const event = await Orders.findById(req.params.id);
-
-    if (!event) {
-      res.status(403).json("wrong event id");
-    } else {
-      try {
-        /*let data = {
-          quantity: req.body.quantity,
-          amountPayed: req.body.amountPayed,
-          buyernme: req.body.buyernme,
-          buyerPhoneNumber: req.body.buyerPhoneNumber,
-          buyerAddress: req.body.buyerAddress,
-          total: quantity * amountPayed,
-        };*/
-
-        const updatedEvent = await Orders.findByIdAndUpdate(
-          req.params.id,
-
+  const orderExists = await Orders.findOne({ _id: req.params.id });
+  if (!orderExists) {
+    res.status(404).json("The order does not exist");
+  } else {
+    try {
+      const sellerid = orderExists.userId;
+      const buyerId = req.body.buyerId;
+      const buyerdata = await User.findOne({ _id: req.body.buyerId });
+      const sellerdata = await User.findOne({ _id: req.body.sellerid });
+      /*const alldata = {
+        buyer: buyerdata,
+        seller: sellerdata,
+      }
+       console.log(sellerdata);*/
+      if (!buyerdata && sellerdata) {
+        res.status(404).json("buyer not exists");
+      } else if (buyerdata && !sellerdata) {
+        res.status(404).json("The seller may not exists");
+      } else if (!buyerdata && !sellerdata) {
+        res.status(404).json("the both are exists");
+      } else {
+        const quantity = req.body.sales[0].quantity;
+        const amountPayed = orderExists.price;
+        const total = amountPayed * quantity;
+        const buyernme = req.body.sales[0].buyernme;
+        const buyerAddress = req.body.sales[0].buyerAddress;
+        const buyerPhoneNumber = req.body.sales[0].buyerPhoneNumber;
+        const updateThesales = await Orders.findByIdAndUpdate(
+          orderExists._id,
           {
-            $push: req.body,
+            $push: {
+              sales: {
+                quantity: quantity,
+                amountPayed: amountPayed,
+                total: total,
+                buyernme: buyernme,
+                buyerAddress: buyerAddress,
+                buyerPhoneNumber: buyerPhoneNumber,
+
+              },
+            },
           },
           { new: true }
         );
-        res.status(200).json(updatedEvent);
-      } catch (err) {
-        next();
+        console.log(total);
+
+        res.status(200).json(updateThesales);
+        //res.status(200).json({ data1: sellerdata, data2: buyerdata });
       }
+    } catch (err) {
+      res.status(500).json(err);
     }
-  } catch (err) {
-    res.status(500).json(err);
   }
 };
 
 //send money
 
-export const sendMoney = async (req, res, next) => {
-  let user = await User.findById(req.params.id === req.user.id);
-  if (!user) {
-    res.send("User does not exist sender ");
+/*export const sendMoney = async (req, res, next) => {
+  const idpramas = req.params.id;
+  const usersending = await User.findOne({ _id: idpramas });
+  if (!usersending._id !== idpramas) {
+    res.status(403).json("wrong id");
   } else {
-    const reciverId = req.body.reciver;
-    const checkhTheSenderexists = await User.findOne(reciverId);
-    if (!checkhTheSenderexists) {
-      res.send("User does not exist ");
+    const Id = req.params.id;
+    const user = await User.findById({ Id });
+    const email = req.body.email;
+    const findreviceid = await User.findd({ email });
+    if (!findreviceid) {
+      res.status(403).json("reciver not found");
     } else {
-      const { amount } = req.body.amount;
-      if (user.wallet.balance < amount) {
-        res.send("balance not enought ");
-      } else {
-        try {
-          const updatedbalance = await checkhTheSenderexists.findOneAndUpdate({
-            $inc: { [checkhTheSenderexists.wallet.balance]: amount },
-          });
-          res.status(200).json(updatedbalance);
-        } catch (err) {
-          return next();
+      try {
+        const senderBalance = user.wallet.balance;
+        const amount = req.body.amountSent;
+        if (senderBalance < amount) {
+          res.status(403).json("insufficient funds");
+        } else {
+          const newblance = senderBalance - amount;
+          const updatedBlanced = await User.findByIdAndUpdate(
+            req.params.id,
+
+            { $set: { balance: newblance } },
+            { new: true }
+          );
+          res.status(200).json(updatedBlanced);
+          const reciverid = findreviceid.id;
+          const reciverBlance = findreviceid.wallet.balance;
+          const newBlanceofreciver = reciverBlance + amount;
+          const updatedReciverblance = await User.findByIdAndUpdate(
+            { reciverid },
+            { $set: { balance: newBlanceofreciver } }
+          );
+          res.status(200).json(updatedReciverblance);
         }
+      } catch (err) {
+        next(err);
+      }
+    }
+  }
+};*/
+export const sendMoney = async (req, res, next) => {
+  const checkh = await User.findOne({ _id: req.params.id });
+
+  if (!checkh) {
+    console.log("userFound");
+    res.status(404).json("user not found");
+  } else {
+    const reciverId = await User.findOne({ _id: req.body.id });
+    if (!reciverId) {
+      res.status(404).json("reciver not found");
+    } else {
+      console.log("found this user");
+      let { ...others } = reciverId._doc;
+      try {
+        const balance = Number(checkh.wallet.balance);
+        const reciverBlanace = reciverId.wallet.balance;
+        console.log(balance);
+        const amountsent = req.body.wallet.sends;
+        const amount = amountsent[0].amountsent;
+        const sentamount = amount;
+        console.log(sentamount);
+
+        if (balance < amount) {
+          res.status(403).json("insufficient funds");
+        } else {
+          const newSenderblance = balance - amount;
+          const newReciverBlance = reciverBlanace + amount;
+          console.log(newSenderblance);
+
+          const updatedBlanced = await User.findByIdAndUpdate(
+            req.params.id,
+
+            {
+              $set: { "wallet.balance": newSenderblance },
+            },
+            { new: true }
+          );
+          const reciverId = req.body.id;
+          ///update the sende data
+          const updatethearray = await User.findByIdAndUpdate(
+            req.params.id,
+
+            {
+              $push: {
+                "wallet.sends": {
+                  $each: [
+                    {
+                      amountsent: sentamount,
+                      reciverAc: reciverId,
+                    },
+                  ],
+                },
+              },
+            },
+            { new: true }
+          );
+
+          ///reciver's   data process and ssaing the data needed
+
+          const reciverupdatedBlance = await User.findByIdAndUpdate(
+            req.body.id,
+            { $set: { "wallet.balance": newReciverBlance } },
+            { new: true }
+          );
+
+          const updaterecivedarraydata = await User.findByIdAndUpdate(
+            req.body.id,
+            {
+              $push: {
+                "wallet.receives": {
+                  $each: [
+                    { amountRecived: sentamount, SenderuserId: req.params.id },
+                  ],
+                },
+              },
+            },
+
+            { new: true }
+          );
+          res.status(200).json(updatethearray);
+        }
+      } catch (err) {
+        next(err);
       }
     }
   }
 };
 /// new funcion for send money
-

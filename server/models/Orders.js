@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 const salesSchema = new mongoose.Schema({
   productId: {
     type: String,
-
     unique: true,
   },
   quantity: {
@@ -10,45 +9,37 @@ const salesSchema = new mongoose.Schema({
   },
   amountPayed: {
     type: Number,
+    
+  
   },
-  buyernme:{
-      type: String,
-
+  buyernme: {
+    type: String,
   },
-  buyerPhoneNumber :{
-      type: Number,
+  buyerPhoneNumber: {
+    type: Number,
   },
   buyerAddress: {
-      type: String,
+    type: String,
   },
-  total:{
-      type: Number,
-
-  }
-
+  total: {
+    type: Number,
+  },
 });
 const prodctSchema = new mongoose.Schema(
   {
     userId: {
       type: String,
-   
     },
     productTitle: {
       type: String,
-   
     },
     price: {
-      type: String,
-   
+      type: Number,
     },
-    sales:[salesSchema]
+    sales: [salesSchema],
   },
 
   { timestamps: true }
 );
 
 export default mongoose.model("Orders", prodctSchema);
-
-
-
-
