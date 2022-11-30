@@ -44,13 +44,12 @@ export const signup = async (req, res, next) => {
 };
 
 export const lots = async (req, res, next) => {
-  if (req.params.id === req.user.id){
-    
+  if (req.params.id === req.user.id) {
   }
   try {
     const newLots = new Lots({
       displayname: req.body.displayname,
-      Typeoflot: req.body.Typeoflot
+      Typeoflot: req.body.Typeoflot,
     });
     const user = await newLots.save();
     res.status(200).json(user);
@@ -76,7 +75,7 @@ export const signin = async (req, res, next) => {
         httpOnly: true,
       })
       .status(200)
-      .json(others); 
+      .json(others);
   } catch (err) {
     next(err);
   }

@@ -142,26 +142,59 @@ export const buysomethingnow = async (req, res) => {
         const buyernme = req.body.sales[0].buyernme;
         const buyerAddress = req.body.sales[0].buyerAddress;
         const buyerPhoneNumber = req.body.sales[0].buyerPhoneNumber;
-        const updateThesales = await Orders.findByIdAndUpdate(
-          orderExists._id,
-          {
-            $push: {
-              sales: {
-                quantity: quantity,
-                amountPayed: amountPayed,
-                total: total,
-                buyernme: buyernme,
-                buyerAddress: buyerAddress,
-                buyerPhoneNumber: buyerPhoneNumber,
-
+        if (buyerdata.wallet.balance < total) {
+          res.status(403).json("Not enough balance");
+        } else {
+          const updateThesales = await Orders.findByIdAndUpdate(
+            orderExists._id,
+            {
+              $push: {
+                sales: {
+                  quantity: quantity,
+                  amountPayed: amountPayed,
+                  total: total,
+                  buyernme: buyernme,
+                  buyerAddress: buyerAddress,
+                  buyerPhoneNumber: buyerPhoneNumber,
+                },
               },
             },
-          },
-          { new: true }
-        );
-        console.log(total);
+            { new: true }
+          );
+          //update the buyer's balance
+          const buyersnewBalance = buyerdata.wallet.balance - total;
+  
+          const updatethebuyersblance = await User.findByIdAndUpdate(
+            buyerdata._id,
+            {
+              $set: {
+                wallet: {
+                  balance: buyersnewBalance,
+                  receives: buyerdata.wallet.receives,
 
-        res.status(200).json(updateThesales);
+                
+                },
+              },
+            },
+        
+          );
+
+          /// update the sellers balance
+          const newsellerBlance = sellerdata.sellerBlance + total;
+          const updatethesellersbalances = await User.findByIdAndUpdate(
+            sellerdata._id,
+            {
+              $set: {
+                sellerBlance: newsellerBlance,
+              },
+            },
+            { new: true }
+          );
+          console.log(newsellerBlance);
+
+          res.status(200).json(updateThesales);
+        }
+
         //res.status(200).json({ data1: sellerdata, data2: buyerdata });
       }
     } catch (err) {
@@ -263,6 +296,7 @@ export const sendMoney = async (req, res, next) => {
                     {
                       amountsent: sentamount,
                       reciverAc: reciverId,
+                      receiverNmae: req.body.wallet.sends[0].receiverNmae,
                     },
                   ],
                 },
@@ -285,7 +319,11 @@ export const sendMoney = async (req, res, next) => {
               $push: {
                 "wallet.receives": {
                   $each: [
-                    { amountRecived: sentamount, SenderuserId: req.params.id },
+                    {
+                      amountRecived: sentamount,
+                      SenderuserId: req.params.id,
+                      senderNmae: checkh.displayName,
+                    },
                   ],
                 },
               },
