@@ -163,7 +163,7 @@ export const buysomethingnow = async (req, res) => {
           );
           //update the buyer's balance
           const buyersnewBalance = buyerdata.wallet.balance - total;
-  
+
           const updatethebuyersblance = await User.findByIdAndUpdate(
             buyerdata._id,
             {
@@ -171,12 +171,9 @@ export const buysomethingnow = async (req, res) => {
                 wallet: {
                   balance: buyersnewBalance,
                   receives: buyerdata.wallet.receives,
-
-                
                 },
               },
-            },
-        
+            }
           );
 
           /// update the sellers balance
@@ -251,7 +248,6 @@ export const sendMoney = async (req, res, next) => {
   const checkh = await User.findOne({ _id: req.params.id });
 
   if (!checkh) {
-    console.log("userFound");
     res.status(404).json("user not found");
   } else {
     const reciverId = await User.findOne({ _id: req.body.id });

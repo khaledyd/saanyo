@@ -65,7 +65,7 @@ const Footer = () => {
       <Box
         sx={{
           width: "100%",
-          height: "200px",
+          height: "250px",
           backgroundColor: "#3C4263",
           display: "flex",
           justifyContent: "space-between",
@@ -91,7 +91,7 @@ const Footer = () => {
             sx={{
               width: "40%",
               fontFamily: "Poppins, sans-serif",
-              fontSize: "12px",
+              fontSize: "16px",
               color: "#fff",
             }}
           >

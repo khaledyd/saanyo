@@ -1,12 +1,57 @@
-
 import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Dashboard from "./pages/Dashboard";
+import Alltransections from "./pages/Alltransections";
+import StoreDashboard from "./pages/StoreDashboard";
+import Allstoresales from "./pages/Allstoresales";
+import Singlesale from "./pages/Singlesale";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function App() {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <div className="App">
-      <Home />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signUp" element={<Signup />} />
+          <Route
+            path="/dashboard"
+            element={currentUser ? <Dashboard /> : <Login />}
+          />
+          <Route
+            path="/Alltransections"
+            element={currentUser ? <Alltransections /> : <Login />}
+          />
+          <Route
+            path="/StoreDashboard"
+            element={currentUser ? <StoreDashboard /> : <Login />}
+          />
+          <Route
+            path="/Allstoresales"
+            element={currentUser ? <Allstoresales /> : <Login />}
+          />
+          <Route
+            path="/Singlesale"
+            element={currentUser ? <Singlesale /> : <Login />}
+          />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
+
+/* 
+   <Login />
+  <Home />
+      <Signup />
+                <Dashboard />
+      <StoreDashboard />;                <Alltransections />
+            <Allstoresales />  <Singlesale />
+    
+   */
 
 export default App;

@@ -4,12 +4,9 @@ const UserSchema = new mongoose.Schema(
   {
     displayName: {
       type: String,
-
-      unique: true,
     },
     email: {
       type: String,
-
       unique: true,
     },
     password: {
@@ -23,7 +20,7 @@ const UserSchema = new mongoose.Schema(
     },
     sellerBlance: {
       type: Number,
-      default:0,
+      default: 0,
     },
     wallet: {
       balance: {

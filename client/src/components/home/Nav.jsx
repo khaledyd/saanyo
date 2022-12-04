@@ -1,13 +1,16 @@
 import React from "react";
 import { Box, Button, CardMedia, Typography } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const Nav = () => {
+  const { currentUser } = useSelector((state) => state.user);
   return (
     <Box
       display={"flex"}
       justifyContent={"space-between"}
       sx={{
         width: "100%",
+        marginTop:"30px"
       }}
     >
       <Box
