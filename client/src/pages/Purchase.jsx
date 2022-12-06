@@ -4,40 +4,68 @@ import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
 import Nav from "../components/home/Nav";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Signup = () => {
-  const [displayName, setdisplayName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const navigate = useNavigate();
+  const { currentUser } = useSelector((state) => state.user);
+  console.log(currentUser);
+  const buyerId = currentUser._id;
+  const locations = useLocation();
 
+  console.log(currentUser._id);
+
+  const path = locations.pathname.split("/")[2];
+
+  const [order, setOrder] = useState([]);
+  const [quantity, setquantity] = useState("");
+  
+const quantitys = null
+const tatls = quantitys * order.price
+  const [sales, setSales] = useState([
+    {
+      quantity:  null,
+      total:  tatls
+    },
+  ]);
   const handlesubmit = async (e) => {
     e.preventDefault();
-    const data = {
-      email,
-      password,
-      confirmPassword,
-      displayName,
-    };
     try {
-      const res = await axios.post("/auth/signup", data);
-      console.log(res.data);
-      navigate("/login");
+      const res = await axios.put(`/users/purchase/${path}`, {
+        buyerId,
+        sales,
+      });
+      setOrder(res.data);
+      console.log(order);
     } catch (err) {
       console.log(err);
     }
   };
 
+  useEffect(() => {
+    const fechorder = async () => {
+      const res = await axios.get(`/users/getorderbyid/${path}`);
+
+      setOrder(res.data);
+
+      console.log(res.data);
+    };
+    fechorder();
+  }, [path]);
+  const handleChange = (e) => {
+    setSales((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
   return (
     <Box>
       <Nav />
 
       <Box
         sx={{
-          marginTop: "1%",
           width: "100%",
+          marginTop: "1%",
         }}
       >
         <Box
@@ -48,17 +76,17 @@ const Signup = () => {
             width: "50%",
             marginLeft: { lg: "20%", md: "20", sm: "15%", xs: "15%" },
             backgroundColor: "#FCFCFC",
-            padding: "100px 60px",
+            padding: "30px 60px",
             boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
           }}
         >
           <Typography
-            variant="h3"
+            variant="h6"
             sx={{
               color: "#7743DB",
             }}
           >
-            Sign Up
+            Complete Order
           </Typography>
           <Box
             display={"flex"}
@@ -71,48 +99,29 @@ const Signup = () => {
           >
             <TextField
               id="outlined-basic"
-              label="Fullname"
-              type={"email"}
+              label="Quantity"
+              type={"number"}
               variant="outlined"
               sx={{
                 width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
                 marginTop: "10px",
               }}
-              onChange={(e) => setdisplayName(e.target.value)}
+              name="quantity"
+              onChange={handleChange}
             />
             <TextField
               id="outlined-basic"
-              label="Email"
-              type={"email"}
+              type={"number"}
               variant="outlined"
               sx={{
                 width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
                 marginTop: "10px",
               }}
-              onChange={(e) => setEmail(e.target.value)}
+
+              name="total"
+              onChange={handleChange}
             />
-            <TextField
-              id="outlined-basic"
-              label="Password"
-              type={"password"}
-              variant="outlined"
-              sx={{
-                width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
-                marginTop: "10px",
-              }}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <TextField
-              id="outlined-basic"
-              type={"password"}
-              label="confirm password"
-              variant="outlined"
-              sx={{
-                width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
-                marginTop: "10px",
-              }}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
+
             <Box
               sx={{
                 width: "50%",
@@ -127,7 +136,7 @@ const Signup = () => {
                 }}
                 onClick={handlesubmit}
               >
-                Log in
+                Complete Order
               </Button>
               <Box
                 justifyContent={"flex-start"}
@@ -140,14 +149,7 @@ const Signup = () => {
                     color: "#7743DB",
                   }}
                 >
-                  Sing up
-                </Typography>
-                <Typography
-                  sx={{
-                    color: "#7743DB",
-                  }}
-                >
-                  Forget password
+                  Cencel
                 </Typography>
               </Box>
             </Box>

@@ -4,13 +4,15 @@ const salesSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
+  buyerId: {
+    type: String,
+    required: true,
+  },
   quantity: {
     type: Number,
   },
   amountPayed: {
     type: Number,
-    
-  
   },
   buyernme: {
     type: String,
@@ -36,6 +38,7 @@ const prodctSchema = new mongoose.Schema(
     price: {
       type: Number,
     },
+
     sales: [salesSchema],
   },
 

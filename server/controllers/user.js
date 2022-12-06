@@ -113,6 +113,40 @@ export const crateOrder = async (req, res, next) => {
     next(err);
   }
 };
+
+///get orders by userid
+
+export const getOrder = async (req, res, next) => {
+  const userid = req.params.id;
+  const getorders = await Orders.find({ userId: userid });
+  try {
+    if (!getorders) {
+      res.status(404).json("did not find order");
+    } else {
+      res.status(200).json(getorders);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+//get order by id
+
+export const getorderbyid = async (req, res, next) => {
+  const orderId = req.params.id;
+  const getorderwithid = await Orders.findById({
+    _id: orderId,
+  });
+  try {
+    if (!getorderwithid) {
+      res.status(404).json("  not found");
+    } else {
+      res.status(200).json(getorderwithid);
+    }
+  } catch (err) {
+    next(err);
+  }
+};
+
 // make purchase
 export const buysomethingnow = async (req, res) => {
   const orderExists = await Orders.findOne({ _id: req.params.id });
@@ -336,3 +370,41 @@ export const sendMoney = async (req, res, next) => {
   }
 };
 /// new funcion for send money
+
+export const purchase = async (req, res, next) => {
+  try {
+    const orderexists = await Orders.findById(req.params.id);
+    if (!orderexists) {
+      res.status(404).json("order not found");
+    } else {
+      const checkhuser = await User.findById(req.body.buyerId);
+      if (!checkhuser) {
+        res.status(404).json("order not found ...");
+      } else {
+        console.log(orderexists.price);
+        console.log(checkhuser.wallet.balance);
+        const quantity = req.body.sales[0].quantity;
+        const total = quantity * orderexists.price;
+        if (total > checkhuser.wallet.balance) {
+          res.status(400).json("not enough funds");
+        } else {
+          const updatedsales = await Orders.findByIdAndUpdate(
+            req.params.id,
+            {
+              $push: {
+                sales: {
+                  quantity: quantity,
+                  total: total,
+                },
+              },
+            },
+            { new: true }
+          );
+          res.status(200).json(updatedsales);
+        }
+      }
+    }
+  } catch (err) {
+    res.status(500).json("server error");
+  }
+};

@@ -25,7 +25,7 @@ const Hero = () => {
       >
         <Typography
           sx={{
-            fontSize: "53px",
+            fontSize: "50px",
             lineHeight: "60px",
             width: "90%",
             fontFamily: "Noticia Text, serif",

@@ -7,9 +7,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/system";
-import { Typography } from "@mui/material";
+import { Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-export default function BasicTable() {
+export default function BasicTable({ orders }) {
+  const navigate = useNavigate();
+  const copylink = ()=>{
+const url = "http://localhost:3000/orders" + orders._id
+  }
   return (
     <Box
       sx={{
@@ -19,13 +24,12 @@ export default function BasicTable() {
         paddingTop: "5%",
         paddingLeft: "5%",
         height: "max-content",
- 
       }}
     >
       <TableContainer
         component={Box}
         sx={{
-          width: "70%",
+          width: "75%",
           height: "max-content",
         }}
       >
@@ -49,7 +53,7 @@ export default function BasicTable() {
                   fontFamily: "Poppins, sans-serif",
                 }}
               >
-                latest sales
+                list of the Orders
               </TableCell>
             </TableRow>
           </TableHead>
@@ -93,7 +97,7 @@ export default function BasicTable() {
                   fontWeight: "bold",
                 }}
               >
-                Name
+                number of sales
               </TableCell>
               <TableCell
                 sx={{
@@ -115,7 +119,18 @@ export default function BasicTable() {
                   fontWeight: "bold",
                 }}
               >
-                Date
+                Date created
+              </TableCell>
+              <TableCell
+                sx={{
+                  alignSelf: "center",
+
+                  fontFamily: "Poppins, sans-serif",
+                  color: "#3C4263",
+                  fontWeight: "bold",
+                }}
+              >
+                coppy Link
               </TableCell>
             </TableRow>
             <TableRow>
@@ -127,7 +142,7 @@ export default function BasicTable() {
                     fontSize: "16px",
                   }}
                 >
-                  121132417
+                  {orders._id}
                 </Typography>
               </TableCell>
               <TableCell
@@ -137,7 +152,7 @@ export default function BasicTable() {
                   fontSize: "15px",
                 }}
               >
-                khaled dahir
+                {orders.sales.length}
               </TableCell>
               <TableCell
                 sx={{
@@ -146,7 +161,7 @@ export default function BasicTable() {
                   fontSize: "15px",
                 }}
               >
-                120
+                $ {orders.price}
               </TableCell>
               <TableCell
                 sx={{
@@ -155,112 +170,24 @@ export default function BasicTable() {
                   fontSize: "15px",
                 }}
               >
-                12jan , 2023
+                {new Date(orders.createdAt).toDateString()}
               </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-        <Table>
-          <TableBody>
-            <TableRow>
               <TableCell
                 sx={{
-                  display: "flex",
+                  color: "#7743DB",
+                  fontWeight: "bold",
+                  fontSize: "15px",
                 }}
               >
-                <img
-                  src="./images/recive.png"
-                  alt="transfer.png"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                  }}
-                />{" "}
-                <Typography
-                  sx={{
-                    alignSelf: "center",
-                    marginLeft: "10px",
-                    fontFamily: "Poppins, sans-serif",
-                    color: "#3C4263",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {" "}
-                  Order Id
-                </Typography>
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignSelf: "center",
+                <Button sx={{
+                  backgroundColor: "#7743db",
+                  color: "#ffF",
+                  
+                  
 
-                  fontFamily: "Poppins, sans-serif",
-                  color: "#3C4263",
-                  fontWeight: "bold",
                 }}
-              >
-                Name
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignSelf: "center",
-
-                  fontFamily: "Poppins, sans-serif",
-                  color: "#3C4263",
-                  fontWeight: "bold",
-                }}
-              >
-                price
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignSelf: "center",
-
-                  fontFamily: "Poppins, sans-serif",
-                  color: "#3C4263",
-                  fontWeight: "bold",
-                }}
-              >
-                Date
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Typography
-                  sx={{
-                    marginLeft: "40px",
-                    color: "#7743DB",
-                    fontSize: "16px",
-                  }}
-                >
-                  121132417
-                </Typography>
-              </TableCell>
-              <TableCell
-                sx={{
-                  color: "#7743DB",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                khaled dahir
-              </TableCell>
-              <TableCell
-                sx={{
-                  color: "#7743DB",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                120
-              </TableCell>
-              <TableCell
-                sx={{
-                  color: "#7743DB",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                12jan , 2023
+                onClick={()=> navigate(`/Purchase/${orders._id}`)}
+                >Link</Button>
               </TableCell>
             </TableRow>
           </TableBody>

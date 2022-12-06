@@ -3,8 +3,9 @@ import { Box } from "@mui/system";
 import React from "react";
 import PaymentIcon from "@mui/icons-material/Payment";
 import ReplyIcon from "@mui/icons-material/Reply";
+import { useState } from "react";
 
-const Nav = () => {
+const Nav = ({ handleOrder, orders }) => {
   return (
     <Box
       sx={{
@@ -41,6 +42,7 @@ const Nav = () => {
           Khalid dahir
         </Button>
       </Box>
+
       <Box>
         <Box
           sx={{
@@ -168,6 +170,7 @@ const Nav = () => {
                 textTransform: "unset !important",
                 marginRight: "10px",
               }}
+              onClick={handleOrder}
             >
               <PaymentIcon
                 sx={{
@@ -196,7 +199,7 @@ const Nav = () => {
                   color: "#7743DB",
                 }}
               />
-              Share Id
+              Orders
             </Button>
           </Box>
         </Box>

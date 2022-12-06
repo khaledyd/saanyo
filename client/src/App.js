@@ -7,7 +7,9 @@ import StoreDashboard from "./pages/StoreDashboard";
 import Allstoresales from "./pages/Allstoresales";
 import Singlesale from "./pages/Singlesale";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Purchase from "./pages/Purchase";
 import { useSelector } from "react-redux";
+import Orders from "./pages/Orders"
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -37,6 +39,11 @@ function App() {
           <Route
             path="/Singlesale"
             element={currentUser ? <Singlesale /> : <Login />}
+          />
+          <Route path="/Purchase/:id" element={<Purchase />} />
+          <Route
+            path="/orders"
+            element={currentUser ? <Orders /> : <Login />}
           />
         </Routes>
       </BrowserRouter>

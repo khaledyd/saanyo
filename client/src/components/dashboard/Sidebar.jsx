@@ -1,8 +1,10 @@
 import { Button, Typography } from "@mui/material";
 import { Box, padding } from "@mui/system";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -123,6 +125,7 @@ const Sidebar = () => {
               width: "40px",
               height: "40px",
             }}
+            onClick={()=> navigate('/Storedashboard')}
           />
           <Typography
             sx={{

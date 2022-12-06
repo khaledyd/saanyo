@@ -19,7 +19,6 @@ export default function BasicTable() {
         paddingTop: "5%",
         paddingLeft: "5%",
         height: "max-content",
- 
       }}
     >
       <TableContainer

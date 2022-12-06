@@ -1,14 +1,16 @@
 import { Button, Typography } from "@mui/material";
 import { Box, padding } from "@mui/system";
 import React from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
         width: "20%",
         height: "max-content",
-
       }}
     >
       <Box>
@@ -131,9 +133,11 @@ const Sidebar = () => {
               fontSize: "18px",
 
               fontFamily: "Poppins, sans-serif",
+              cursor:"pointer"
             }}
+            onClick={()=> navigate("/orders")}
           >
-            Store
+            Orders
           </Typography>
         </Box>
         <Box
@@ -206,17 +210,21 @@ const Sidebar = () => {
           marginLeft: "5%",
           display: "flex",
           alignItems: "center",
- 
         }}
       >
         <img src="./images/logout.png" alt="logout" />
-        <Typography sx={{
-                  marginLeft: "10px",
-              color: "#3C4263",
-              fontSize: "18px",
+        <Typography
+          sx={{
+            marginLeft: "10px",
+            color: "#3C4263",
+            fontSize: "18px",
 
-              fontFamily: "Poppins, sans-serif",
-        }}> Logout</Typography>
+            fontFamily: "Poppins, sans-serif",
+          }}
+        >
+          {" "}
+          Logout
+        </Typography>
       </Box>
     </Box>
   );
