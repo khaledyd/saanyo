@@ -10,6 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Purchase from "./pages/Purchase";
 import { useSelector } from "react-redux";
 import Orders from "./pages/Orders"
+import Sendmoney from "./pages/Sendmoney"
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -44,6 +45,10 @@ function App() {
           <Route
             path="/orders"
             element={currentUser ? <Orders /> : <Login />}
+          />
+             <Route
+            path="/Sendmoney"
+            element={currentUser ? <Sendmoney /> : <Login />}
           />
         </Routes>
       </BrowserRouter>

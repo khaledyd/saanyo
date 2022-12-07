@@ -12,7 +12,7 @@ import DoneIcon from "@mui/icons-material/Done";
 const Signup = () => {
   const { currentUser } = useSelector((state) => state.user);
 
-  const buyerId = currentUser._id;
+  const senderId = currentUser._id;
   const locations = useLocation();
 
   const path = locations.pathname.split("/")[2];
@@ -26,54 +26,45 @@ const Signup = () => {
   ]);
   const [seuccess, setSuccess] = useState(false);
   const [quantity, setquantity] = useState();
-  const [buyernme, setbuyernme] = useState("");
-  const [buyerPhoneNumber, setbuyerPhoneNumber] = useState();
-  const [buyerAddress, setbuyerAddress] = useState("");
-  const [total, setTotal] = useState(0);
+  const [amountsent, setamountsent] = useState("");
+  const [receiverNmae, setreceiverNmae] = useState();
+  const [id, setid] = useState("");
+  const [reciverAc, setreciverAc] = useState(id);
 
-  const sellerid = order.userId;
   useEffect(() => {
     const fechorder = async () => {
-      const res = await axios.get(`/users/getorderbyid/${path}`);
-      const sellerdata = await axios.get(`/users/find/${res.data.userId}`);
-      console.log(currentUser);
-
-      setOrder(res.data);
+      const reciverdata = await axios.get(`/users/find/${id}`);
+      console.log(reciverdata);
     };
     fechorder();
-  }, [path]);
-  const handleChange = (e) => {
-    setSales((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
-  };
+  }, [id]);
 
-  const handleSubmit = async (e) => {
+  const handlesubmit = async (e) => {
     e.preventDefault();
-    const sales = [
-      {
-        quantity,
-        buyernme,
-        buyerPhoneNumber,
-        buyerAddress,
-      },
-    ];
-
-    try {
-      const res = await axios.put(
-        "/users/buysomethingnow/" + path,
-
+    const wallet = {
+      sends: [
         {
-          sellerid,
-          buyerId,
-          sales,
-        }
-      );
-      setSuccess(true);
-      setSales(res.data);
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
+          amountsent,
+          receiverNmae,
+          id,
+          reciverAc,
+        },
+      ],
+    };
+    const fechuser = await axios.get(`/users/find/${id}`);
+    if (fechuser) {
+      try {
+        const res = await axios.put(`/users/sendMoney/${senderId}`, {
+          id,
+          wallet,
+        });
+        setSuccess(true);
+        console.log(res.data.wallet.sends);
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      console.log("did not receive");
     }
   };
 
@@ -148,7 +139,7 @@ const Signup = () => {
                 color: "#7743DB",
               }}
             >
-              Complete Order
+              Send Money
             </Typography>
             <Box
               display={"flex"}
@@ -159,58 +150,20 @@ const Signup = () => {
                 width: "100%",
               }}
             >
-              <Box
-                sx={{
-                  width: "70%",
-                  marginTop: "11px",
-                  marginButtom: "20px",
-                }}
-              >
-                {" "}
-                <Typography
-                  sx={{
-                    fontSize: "20px",
-                    fontFamily: "Poppins, sans-serif",
-                  }}
-                >
-                  <strong>OrderId : </strong>
-                  {order._id}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "20px",
-                    fontFamily: "Poppins, sans-serif",
-                  }}
-                >
-                  {" "}
-                  <strong>Price : </strong>${order.price}
-                </Typography>
-                <Typography
-                  sx={{
-                    fontSize: "20px",
-                    fontFamily: "Poppins, sans-serif",
-                  }}
-                >
-                  {" "}
-                  <strong>Total : </strong> ${quantity * order.price}
-                </Typography>
-              </Box>
-
               <TextField
                 id="outlined-basic"
-                label="Quantity"
-                type={"number"}
+                label="Reciver Account Number"
+                type={"text"}
                 variant="outlined"
                 sx={{
                   width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
                   marginTop: "10px",
                 }}
-                name="quantity"
-                onChange={(e) => setquantity(e.target.value)}
+                onChange={(e) => setid(e.target.value)}
               />
               <TextField
                 id="outlined-basic"
-                label="fullName"
+                label="amount"
                 type={"text"}
                 variant="outlined"
                 sx={{
@@ -218,23 +171,11 @@ const Signup = () => {
                   marginTop: "10px",
                 }}
                 name="buyernme"
-                onChange={(e) => setbuyernme(e.target.value)}
+                onChange={(e) => setamountsent(e.target.value)}
               />
               <TextField
                 id="outlined-basic"
-                label="phone Number"
-                type={"number"}
-                variant="outlined"
-                sx={{
-                  width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
-                  marginTop: "10px",
-                }}
-                name="buyernme"
-                onChange={(e) => setbuyerPhoneNumber(e.target.value)}
-              />
-              <TextField
-                id="outlined-basic"
-                label="Address"
+                label="name of the reciver"
                 type={"text"}
                 variant="outlined"
                 sx={{
@@ -242,7 +183,7 @@ const Signup = () => {
                   marginTop: "10px",
                 }}
                 name="buyernme"
-                onChange={(e) => setbuyerAddress(e.target.value)}
+                onChange={(e) => setreceiverNmae(e.target.value)}
               />
 
               <Box
@@ -257,7 +198,7 @@ const Signup = () => {
                     marginTop: "10px",
                     backgroundColor: "#7743DB",
                   }}
-                  onClick={handleSubmit}
+                  onClick={handlesubmit}
                 >
                   Complete Order
                 </Button>

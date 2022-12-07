@@ -163,13 +163,17 @@ export const buysomethingnow = async (req, res) => {
         seller: sellerdata,
       }
        console.log(sellerdata);*/
-      if (!buyerdata && sellerdata) {
-        res.status(404).json("buyer not exists");
-      } else if (buyerdata && !sellerdata) {
-        res.status(404).json("The seller may not exists");
-      } else if (!buyerdata && !sellerdata) {
-        res.status(404).json("the both are exists");
-      } else {
+      //if (!buyerdata && sellerdata) {
+        //res.status(404).json("buyer not exists");
+      //}// else if (buyerdata && !sellerdata) {
+        //res.status(404).json("The seller may not exists");
+     // } else if (!buyerdata && !sellerdata) {
+       // res.status(404).json("the both are exists");
+      //
+      if (!buyerdata) {
+        res.status(401).json("buyer not exists");
+      }
+      else {
         const quantity = req.body.sales[0].quantity;
         const amountPayed = orderExists.price;
         const total = amountPayed * quantity;
@@ -203,25 +207,30 @@ export const buysomethingnow = async (req, res) => {
             {
               $set: {
                 wallet: {
-                  balance: buyersnewBalance,
+                  "balance": buyersnewBalance,
+                  sends: buyerdata.wallet.sends,
                   receives: buyerdata.wallet.receives,
+              
                 },
               },
-            }
+            },
+            { new: true}
           );
 
           /// update the sellers balance
           const newsellerBlance = sellerdata.sellerBlance + total;
           const updatethesellersbalances = await User.findByIdAndUpdate(
-            sellerdata._id,
+            //sellerdata._id,
+            sellerid,
             {
-              $set: {
-                sellerBlance: newsellerBlance,
+              $inc: {
+                "sellerBlance": total ,
               },
             },
-            { new: true }
+          
           );
           console.log(newsellerBlance);
+          console.log(req.body)
 
           res.status(200).json(updateThesales);
         }
@@ -373,38 +382,61 @@ export const sendMoney = async (req, res, next) => {
 
 export const purchase = async (req, res, next) => {
   try {
-    const orderexists = await Orders.findById(req.params.id);
-    if (!orderexists) {
-      res.status(404).json("order not found");
+    const checkhorder = await Orders.findById(req.params.id);
+    if (!checkhorder) {
+      res.status(404).json("did not found");
     } else {
-      const checkhuser = await User.findById(req.body.buyerId);
-      if (!checkhuser) {
-        res.status(404).json("order not found ...");
+      const buyerId = req.body.buyerId;
+      const finduser = await User.findById({ _id: buyerId });
+      if (!finduser) {
+        res.status(403).json("id not found");
       } else {
-        console.log(orderexists.price);
-        console.log(checkhuser.wallet.balance);
-        const quantity = req.body.sales[0].quantity;
-        const total = quantity * orderexists.price;
-        if (total > checkhuser.wallet.balance) {
-          res.status(400).json("not enough funds");
-        } else {
-          const updatedsales = await Orders.findByIdAndUpdate(
-            req.params.id,
-            {
-              $push: {
-                sales: {
-                  quantity: quantity,
-                  total: total,
-                },
+        const updatessales = await Orders.findByIdAndUpdate(
+          req.params.id,
+          {
+            $push: {
+              sales: {
+                buyerId: buyerId,
+            
               },
             },
-            { new: true }
-          );
-          res.status(200).json(updatedsales);
-        }
+          },
+          { new: true }
+        );
+        res.status(200).json(updatessales);
       }
     }
   } catch (err) {
     res.status(500).json("server error");
   }
 };
+
+/*const orderexists = await Orders.findById(req.params.id);
+    if (!orderexists) {
+      res.status(404).json("order not found");
+    } else {
+      const quantity = req.body.sales[0].quantity;
+      const total = quantity * orderexists.price;
+      if (total > req.user.wallet.balance) {
+        res.status(400).json("not enough funds");
+      } else {
+        const updatedsales = await Orders.findByIdAndUpdate(
+          req.params.id,
+          {
+            $push: {
+              sales: {
+                quantity: quantity,
+                total: total,
+                amountPayed: orderexists.price,
+              },
+            },
+          },
+          { new: true }
+        );
+        res.status(200).json(updatedsales);
+      }
+
+
+
+
+    }*/
