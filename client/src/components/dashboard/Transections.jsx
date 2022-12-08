@@ -16,9 +16,8 @@ export default function BasicTable() {
         width: "90%",
         backgroundColor: "#fff",
         marginLeft: "1%",
-        paddingTop: "5%",
+
         paddingLeft: "5%",
-        height: "100%",
       }}
     >
       <TableContainer
@@ -28,32 +27,6 @@ export default function BasicTable() {
           height: "max-content",
         }}
       >
-        <Table sx={{ width: "100%" }} aria-label="simple table">
-          <TableHead
-            sx={{
-              backgroundColor: "#3C4263",
-            }}
-          >
-            <TableRow
-              sx={{
-                width: "100%",
-                backgroundColor: "#3C4263",
-              }}
-            >
-              <TableCell
-                sx={{
-                  backgroundColor: "#3C4263",
-                  fontSize: "20px",
-                  color: "#FFFFFF",
-                  fontFamily: "Poppins, sans-serif",
-                }}
-              >
-                latest transections
-              </TableCell>
-            </TableRow>
-          </TableHead>
-        </Table>
-
         <Table>
           <TableBody>
             <TableRow>
@@ -64,112 +37,6 @@ export default function BasicTable() {
               >
                 <img
                   src="./images/transfer.png"
-                  alt="transfer.png"
-                  style={{
-                    width: "40px",
-                    height: "40px",
-                  }}
-                />{" "}
-                <Typography
-                  sx={{
-                    alignSelf: "center",
-                    marginLeft: "10px",
-                    fontFamily: "Poppins, sans-serif",
-                    color: "#3C4263",
-                    fontWeight: "bold",
-                  }}
-                >
-                  {" "}
-                  Amount
-                </Typography>
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignSelf: "center",
-
-                  fontFamily: "Poppins, sans-serif",
-                  color: "#3C4263",
-                  fontWeight: "bold",
-                }}
-              >
-                Date
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignSelf: "center",
-
-                  fontFamily: "Poppins, sans-serif",
-                  color: "#3C4263",
-                  fontWeight: "bold",
-                }}
-              >
-                Account
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignSelf: "center",
-
-                  fontFamily: "Poppins, sans-serif",
-                  color: "#3C4263",
-                  fontWeight: "bold",
-                }}
-              >
-                Name
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Typography
-                  sx={{
-                    marginLeft: "40px",
-                    color: "#7743DB",
-                    fontWeight: "bold",
-                    fontSize: "25px",
-                  }}
-                >
-                  $20.15
-                </Typography>
-              </TableCell>
-              <TableCell
-                sx={{
-                  color: "#7743DB",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                20 April ,2022
-              </TableCell>
-              <TableCell
-                sx={{
-                  color: "#7743DB",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                12321335627281
-              </TableCell>
-              <TableCell
-                sx={{
-                  color: "#7743DB",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                Khalid dahir
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-        <Table>
-          <TableBody>
-            <TableRow>
-              <TableCell
-                sx={{
-                  display: "flex",
-                }}
-              >
-                <img
-                  src="./images/recive.png"
                   alt="transfer.png"
                   style={{
                     width: "40px",

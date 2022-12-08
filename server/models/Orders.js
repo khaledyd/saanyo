@@ -4,7 +4,7 @@ const salesSchema = new mongoose.Schema({
     type: String,
     unique: true,
   },
-  buyerId: {
+  buyerIds: {
     type: String,
     required: true,
   },

@@ -3,16 +3,17 @@ import { Box } from "@mui/system";
 import React from "react";
 import PaymentIcon from "@mui/icons-material/Payment";
 import ReplyIcon from "@mui/icons-material/Reply";
+import { useNavigate } from "react-router-dom";
 
 const Nav = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
         width: "90%",
-        marginLeft:"10%"
-
+        marginLeft: "10%",
       }}
     >
       <Box
@@ -62,6 +63,7 @@ const Nav = () => {
           </Typography>
           <Box>
             <Button
+              onClick={() => navigate("/Sendmoney")}
               sx={{
                 width: "max-content",
                 padding: "10px 30px",

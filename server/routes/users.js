@@ -12,8 +12,8 @@ import {
   sendMoney,
   getOrder,
   getorderbyid,
-  purchase
-
+  purchase,
+  latesttrasections,
 } from "../controllers/user.js";
 import { verifyToken } from "../verifyToken.js";
 
@@ -41,11 +41,11 @@ router.put("/like/:videoId", verifyToken, like);
 router.put("/dislike/:videoId", verifyToken, dislike);
 router.post("/createorder/:id", verifyToken, crateOrder);
 
-router.put("/buysomethingnow/:id",verifyToken, buysomethingnow);
+router.put("/buysomethingnow/:id", verifyToken, buysomethingnow);
 router.put("/sendMoney/:id", sendMoney);
 router.get("/getorder/:id", getOrder);
 router.get("/getorderbyid/:id", getorderbyid);
-router.put("/purchase/:id",verifyToken, purchase);
-
+router.put("/purchase/:id", verifyToken, purchase);
+router.get("/latesttrasections/:id", verifyToken, latesttrasections);
 
 export default router;

@@ -48,6 +48,10 @@ const UserSchema = new mongoose.Schema(
           receiverNmae: {
             type: String,
           },
+          createAt: {
+            type: Date,
+            default: Date.now,
+          },
         },
         { timestamps: true },
       ],
@@ -62,7 +66,7 @@ const UserSchema = new mongoose.Schema(
           senderNmae: {
             type: String,
           },
-          dateRecived: {
+          createAt: {
             type: Date,
             default: Date.now,
           },

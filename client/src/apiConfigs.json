@@ -1,0 +1,17 @@
+{
+  "route": "localhost:8002/api/users/sendmoney/currentuserId",
+  "type": "put method",
+
+  "data": {
+    "id": "userId",
+    "wallet": {
+      "transfers": [
+        {
+          "amountTosend": "amount ",
+          "receiverName": "name of the receiver",
+          "reciverAc": "userId"
+        }
+      ]
+    }
+  }
+}

@@ -164,16 +164,15 @@ export const buysomethingnow = async (req, res) => {
       }
        console.log(sellerdata);*/
       //if (!buyerdata && sellerdata) {
-        //res.status(404).json("buyer not exists");
+      //res.status(404).json("buyer not exists");
       //}// else if (buyerdata && !sellerdata) {
-        //res.status(404).json("The seller may not exists");
-     // } else if (!buyerdata && !sellerdata) {
-       // res.status(404).json("the both are exists");
+      //res.status(404).json("The seller may not exists");
+      // } else if (!buyerdata && !sellerdata) {
+      // res.status(404).json("the both are exists");
       //
       if (!buyerdata) {
         res.status(401).json("buyer not exists");
-      }
-      else {
+      } else {
         const quantity = req.body.sales[0].quantity;
         const amountPayed = orderExists.price;
         const total = amountPayed * quantity;
@@ -207,14 +206,13 @@ export const buysomethingnow = async (req, res) => {
             {
               $set: {
                 wallet: {
-                  "balance": buyersnewBalance,
+                  balance: buyersnewBalance,
                   sends: buyerdata.wallet.sends,
                   receives: buyerdata.wallet.receives,
-              
                 },
               },
             },
-            { new: true}
+            { new: true }
           );
 
           /// update the sellers balance
@@ -224,13 +222,12 @@ export const buysomethingnow = async (req, res) => {
             sellerid,
             {
               $inc: {
-                "sellerBlance": total ,
+                sellerBlance: total,
               },
-            },
-          
+            }
           );
           console.log(newsellerBlance);
-          console.log(req.body)
+          console.log(req.body);
 
           res.status(200).json(updateThesales);
         }
@@ -397,7 +394,6 @@ export const purchase = async (req, res, next) => {
             $push: {
               sales: {
                 buyerId: buyerId,
-            
               },
             },
           },
@@ -440,3 +436,34 @@ export const purchase = async (req, res, next) => {
 
 
     }*/
+
+//latest transections
+
+export const latesttrasections = async (req, res, next) => {
+  const finduser = await User.findById(req.params.id);
+  try {
+    if (!finduser) {
+      res.status(404).json("not found");
+    } else {
+      const sends = finduser.wallet.sends;
+      const receives = finduser.wallet.receives;
+      const merge = (a1, a2) => {
+        return a1
+          .map((x) => {
+            const y = a2.find((item) => x._id === item._id);
+            if (y) {
+              return Object.assign({}, x, y);
+            } else return x;
+          })
+          .concat(a2.filter((item) => a1.every((x) => x._id !== item._id)));
+      };
+
+      const arr3 = merge(sends, receives);
+      const last = new Date(Math.max(...arr3.map((e) => new Date(e.createAt))));
+
+      res.status(200).json(last);
+    }
+  } catch (err) {
+    res.status(500).json("server error");
+  }
+};
