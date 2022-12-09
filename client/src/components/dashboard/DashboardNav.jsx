@@ -4,8 +4,12 @@ import React from "react";
 import PaymentIcon from "@mui/icons-material/Payment";
 import ReplyIcon from "@mui/icons-material/Reply";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import StoreIcon from "@mui/icons-material/Store";
 
-const Nav = () => {
+const Nav = ({ userdata }) => {
+  const { currentUser } = useSelector((state) => state.user);
+  const username = <state className="user"> Q Q Q</state>;
   const navigate = useNavigate();
   return (
     <Box
@@ -40,7 +44,7 @@ const Nav = () => {
             textTransform: "unset !important",
           }}
         >
-          Khalid dahir
+          {currentUser.displayName}
         </Button>
       </Box>
       <Box>
@@ -94,14 +98,15 @@ const Nav = () => {
                 marginRight: "10px",
                 border: "1px solid ##3C4263",
               }}
+              onClick={() => navigate("/StoreDashboard")}
             >
-              <ReplyIcon
+              <StoreIcon
                 sx={{
                   marginRight: "10px",
                   color: "#7743DB",
                 }}
               />
-              Share Id
+              Store
             </Button>
           </Box>
         </Box>
@@ -128,7 +133,7 @@ const Nav = () => {
               latterSpacing: "1.5px",
             }}
           >
-            10,000
+            ${userdata}
           </Typography>
         </Box>
       </Box>

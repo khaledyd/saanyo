@@ -297,7 +297,7 @@ export const sendMoney = async (req, res, next) => {
       console.log("found this user");
       let { ...others } = reciverId._doc;
       try {
-        const balance = Number(checkh.wallet.balance);
+        const balance = checkh.wallet.balance;
         const reciverBlanace = reciverId.wallet.balance;
         console.log(balance);
         const amountsent = req.body.wallet.sends;
@@ -305,11 +305,11 @@ export const sendMoney = async (req, res, next) => {
         const sentamount = amount;
         console.log(sentamount);
 
-        if (balance < amount) {
+        if (balance < sentamount) {
           res.status(403).json("insufficient funds");
         } else {
-          const newSenderblance = balance - amount;
-          const newReciverBlance = reciverBlanace + amount;
+          const newSenderblance = balance - sentamount;
+          const newReciverBlance = reciverBlanace + sentamount;
           console.log(newSenderblance);
 
           const updatedBlanced = await User.findByIdAndUpdate(
@@ -346,7 +346,7 @@ export const sendMoney = async (req, res, next) => {
           const reciverupdatedBlance = await User.findByIdAndUpdate(
             req.body.id,
             { $set: { "wallet.balance": newReciverBlance } },
-            { new: true }
+       
           );
 
           const updaterecivedarraydata = await User.findByIdAndUpdate(
@@ -466,4 +466,26 @@ export const latesttrasections = async (req, res, next) => {
   } catch (err) {
     res.status(500).json("server error");
   }
+};
+
+export const updateuser = async (req, res, next) => {
+  try {
+    if (!req.params.id) {
+      res.status(500).json("you are not authenticated ");
+    } else {
+      const udapteduser = await User.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: {
+            displayName: req.body.displayName,
+            email: req.body.email,
+            password: req.body.password,
+          },
+        },
+        { new: true }
+
+      );
+      res.status(200).json(udapteduser);
+    }
+  } catch (err) {}
 };

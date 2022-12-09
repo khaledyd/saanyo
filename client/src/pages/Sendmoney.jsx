@@ -17,16 +17,9 @@ const Signup = () => {
 
   const path = locations.pathname.split("/")[2];
 
-  const [order, setOrder] = useState([]);
-  const [sales, setSales] = useState([
-    {
-      quantity: 1,
-      buyernme: "",
-    },
-  ]);
   const [seuccess, setSuccess] = useState(false);
-  const [quantity, setquantity] = useState();
-  const [amountsent, setamountsent] = useState("");
+
+  const [amountsent, setamountsent] = useState(null);
   const [receiverNmae, setreceiverNmae] = useState();
   const [id, setid] = useState("");
   const [reciverAc, setreciverAc] = useState(id);
@@ -39,15 +32,17 @@ const Signup = () => {
     fechorder();
   }, [id]);
 
+  const balances = currentUser.wallet.balance;
   const handlesubmit = async (e) => {
     e.preventDefault();
     const wallet = {
+
       sends: [
         {
-          amountsent,
-          receiverNmae,
+          amountsent: Number(amountsent),
+          receiverNmae: receiverNmae,
           id,
-          reciverAc,
+          reciverAc: reciverAc,
         },
       ],
     };
@@ -164,15 +159,15 @@ const Signup = () => {
               <TextField
                 id="outlined-basic"
                 label="amount"
-                type={"text"}
+                type="number"
                 variant="outlined"
                 sx={{
                   width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
                   marginTop: "10px",
                 }}
-                name="buyernme"
                 onChange={(e) => setamountsent(e.target.value)}
               />
+              
               <TextField
                 id="outlined-basic"
                 label="name of the reciver"

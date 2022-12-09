@@ -9,9 +9,9 @@ import Paper from "@mui/material/Paper";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 
-export default function BasicTable({ sends }) {
-  
-
+export default function BasicTable({ receives }) {
+  const datas = [receives];
+  console.log(datas);
 
   return (
     <Box
@@ -39,7 +39,7 @@ export default function BasicTable({ sends }) {
                 }}
               >
                 <img
-                  src="./images/transfer.png"
+                  src="./images/recive.png"
                   alt="transfer.png"
                   style={{
                     width: "40px",
@@ -101,10 +101,10 @@ export default function BasicTable({ sends }) {
                     color: "#7743DB",
                     fontWeight: "bold",
                     fontSize: "25px",
-                    width:"20%"
+                    width: "20%",
                   }}
                 >
-                  ${sends.amountsent}
+                  ${receives.amountRecived}
                 </Typography>
               </TableCell>
               <TableCell
@@ -112,30 +112,30 @@ export default function BasicTable({ sends }) {
                   color: "#7743DB",
                   fontWeight: "bold",
                   fontSize: "15px",
-                  width:"20%"
+                  width: "20%",
                 }}
               >
-                {new Date(sends.createAt).toDateString()}
+                {new Date(receives.createAt).toDateString()}
               </TableCell>
               <TableCell
                 sx={{
                   color: "#7743DB",
                   fontWeight: "bold",
                   fontSize: "15px",
-                  width:"30%"
+                  width: "30%",
                 }}
               >
-                {sends.reciverAc}
+                {receives.SenderuserId}
               </TableCell>
               <TableCell
                 sx={{
                   color: "#7743DB",
                   fontWeight: "bold",
                   fontSize: "15px",
-                  width:"30%"
+                  width: "30%",
                 }}
               >
-                {sends.receiverNmae}
+                {receives.senderNmae}
               </TableCell>
             </TableRow>
           </TableBody>

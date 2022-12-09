@@ -8,10 +8,10 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
+import Sales from "./Sales";
 
-export default function BasicTable({ sends }) {
-  
-
+export default function BasicTable({ salesdata }) {
+  console.log(salesdata);
 
   return (
     <Box
@@ -19,14 +19,15 @@ export default function BasicTable({ sends }) {
         width: "90%",
         backgroundColor: "#fff",
         marginLeft: "1%",
-
+        paddingTop: "5%",
         paddingLeft: "5%",
+        height: "max-content",
       }}
     >
       <TableContainer
         component={Box}
         sx={{
-          width: "100%",
+          width: "70%",
           height: "max-content",
         }}
       >
@@ -39,7 +40,7 @@ export default function BasicTable({ sends }) {
                 }}
               >
                 <img
-                  src="./images/transfer.png"
+                  src="./images/recive.png"
                   alt="transfer.png"
                   style={{
                     width: "40px",
@@ -56,30 +57,8 @@ export default function BasicTable({ sends }) {
                   }}
                 >
                   {" "}
-                  Amount
+                  Order Id
                 </Typography>
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignSelf: "center",
-
-                  fontFamily: "Poppins, sans-serif",
-                  color: "#3C4263",
-                  fontWeight: "bold",
-                }}
-              >
-                Date
-              </TableCell>
-              <TableCell
-                sx={{
-                  alignSelf: "center",
-
-                  fontFamily: "Poppins, sans-serif",
-                  color: "#3C4263",
-                  fontWeight: "bold",
-                }}
-              >
-                Account
               </TableCell>
               <TableCell
                 sx={{
@@ -92,50 +71,27 @@ export default function BasicTable({ sends }) {
               >
                 Name
               </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                <Typography
-                  sx={{
-                    marginLeft: "40px",
-                    color: "#7743DB",
-                    fontWeight: "bold",
-                    fontSize: "25px",
-                    width:"20%"
-                  }}
-                >
-                  ${sends.amountsent}
-                </Typography>
+              <TableCell
+                sx={{
+                  alignSelf: "center",
+
+                  fontFamily: "Poppins, sans-serif",
+                  color: "#3C4263",
+                  fontWeight: "bold",
+                }}
+              >
+                price
               </TableCell>
               <TableCell
                 sx={{
-                  color: "#7743DB",
+                  alignSelf: "center",
+
+                  fontFamily: "Poppins, sans-serif",
+                  color: "#3C4263",
                   fontWeight: "bold",
-                  fontSize: "15px",
-                  width:"20%"
                 }}
               >
-                {new Date(sends.createAt).toDateString()}
-              </TableCell>
-              <TableCell
-                sx={{
-                  color: "#7743DB",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                  width:"30%"
-                }}
-              >
-                {sends.reciverAc}
-              </TableCell>
-              <TableCell
-                sx={{
-                  color: "#7743DB",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                  width:"30%"
-                }}
-              >
-                {sends.receiverNmae}
+                Date
               </TableCell>
             </TableRow>
           </TableBody>

@@ -14,6 +14,7 @@ import {
   getorderbyid,
   purchase,
   latesttrasections,
+  updateuser,
 } from "../controllers/user.js";
 import { verifyToken } from "../verifyToken.js";
 
@@ -47,5 +48,6 @@ router.get("/getorder/:id", getOrder);
 router.get("/getorderbyid/:id", getorderbyid);
 router.put("/purchase/:id", verifyToken, purchase);
 router.get("/latesttrasections/:id", verifyToken, latesttrasections);
+router.put("/updateuser/:id", updateuser);
 
 export default router;

@@ -11,6 +11,7 @@ import Purchase from "./pages/Purchase";
 import { useSelector } from "react-redux";
 import Orders from "./pages/Orders"
 import Sendmoney from "./pages/Sendmoney"
+import Settings from "./pages/Settings"
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -49,6 +50,10 @@ function App() {
              <Route
             path="/Sendmoney"
             element={currentUser ? <Sendmoney /> : <Login />}
+          />
+           <Route
+            path="/Settings"
+            element={currentUser ? <Settings /> : <Login />}
           />
         </Routes>
       </BrowserRouter>

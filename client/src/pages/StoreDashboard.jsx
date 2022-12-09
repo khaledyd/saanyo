@@ -1,4 +1,13 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Table,
+  TableCell,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import Storesidebar from "../components/storedashboard/Storesidebar";
 import OrderLists from "../components/storedashboard/OrderLists";
@@ -17,6 +26,7 @@ const Dashboard = () => {
   const [cencel, setCencel] = useState(false);
   const [price, setPrice] = useState("");
   const [productTitle, setproductTitle] = useState("");
+  const [sales, setSales] = useState([]);
   const handlecencel = () => {
     setCencel(setIsOpen(false));
   };
@@ -42,6 +52,7 @@ const Dashboard = () => {
       const res = await axios.get(`/users/getorder/${currentUser._id}`);
       setOrders(res.data);
       console.log(res.data);
+      setSales(res.data);
     };
     fechorder();
   }, [currentUser._id]);
@@ -154,9 +165,34 @@ const Dashboard = () => {
               paddingTop: "1%",
             }}
           >
-            <Lastsales />
-
-
+            <Table sx={{ width: "100%" }} aria-label="simple table">
+              <TableHead
+                sx={{
+                  backgroundColor: "#3C4263",
+                }}
+              >
+                <TableRow
+                  sx={{
+                    width: "100%",
+                    backgroundColor: "#3C4263",
+                  }}
+                >
+                  <TableCell
+                    sx={{
+                      backgroundColor: "#3C4263",
+                      fontSize: "20px",
+                      color: "#FFFFFF",
+                      fontFamily: "Poppins, sans-serif",
+                    }}
+                  >
+                    latest sales
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+            </Table>
+            {orders.map((o) => {
+              return <Lastsales orders={o} />;
+            })}
           </Box>
         </Box>
       )}
