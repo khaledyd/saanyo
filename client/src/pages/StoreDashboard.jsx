@@ -26,7 +26,8 @@ const Dashboard = () => {
   const [cencel, setCencel] = useState(false);
   const [price, setPrice] = useState("");
   const [productTitle, setproductTitle] = useState("");
-  const [sales, setSales] = useState([]);
+  const [user, seuser] = useState();
+
   const handlecencel = () => {
     setCencel(setIsOpen(false));
   };
@@ -50,16 +51,17 @@ const Dashboard = () => {
   useEffect(() => {
     const fechorder = async () => {
       const res = await axios.get(`/users/getorder/${currentUser._id}`);
+      const ress = await axios.get(`/users/find/${currentUser._id}`);
+      seuser(ress.data.sellerBlance)
       setOrders(res.data);
       console.log(res.data);
-      setSales(res.data);
+      console.log(ress.data);
+
     };
     fechorder();
   }, [currentUser._id]);
 
-  const handelOrderClick = () => {
-    setOrderClick(!orderClick);
-  };
+
   return (
     <Box
       sx={{
@@ -155,7 +157,7 @@ const Dashboard = () => {
             width: "100%",
           }}
         >
-          <Storenav handleOrder={handleOrder} orders={orders} />
+          <Storenav handleOrder={handleOrder} orders={orders} user ={user} />
 
           <Box
             sx={{

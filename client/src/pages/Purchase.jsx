@@ -11,6 +11,7 @@ import DoneIcon from "@mui/icons-material/Done";
 
 const Signup = () => {
   const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate()
 
   const buyerId = currentUser._id;
   const locations = useLocation();
@@ -271,6 +272,7 @@ const Signup = () => {
                     sx={{
                       color: "#7743DB",
                     }}
+                    onClick={()=> navigate("/dashboard")}
                   >
                     Cencel
                   </Typography>

@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 
-export default function BasicTable() {
+export default function BasicTable({ salesdata }) {
   return (
     <Box
       sx={{
@@ -24,7 +24,7 @@ export default function BasicTable() {
       <TableContainer
         component={Box}
         sx={{
-          width: "70%",
+          width: "100%",
           height: "max-content",
         }}
       >
@@ -33,16 +33,17 @@ export default function BasicTable() {
             <TableRow>
               <TableCell
                 sx={{
-                  display: "flex",
+
+                  width: "5%"
                 }}
               >
                 <Typography
                   sx={{
                     alignSelf: "center",
-                    marginLeft: "10px",
                     fontFamily: "Poppins, sans-serif",
                     color: "#3C4263",
                     fontWeight: "bold",
+              
                   }}
                 >
                   {" "}
@@ -56,6 +57,7 @@ export default function BasicTable() {
                   fontFamily: "Poppins, sans-serif",
                   color: "#3C4263",
                   fontWeight: "bold",
+                  width: "5%"
                 }}
               >
                 Quantity
@@ -67,6 +69,7 @@ export default function BasicTable() {
                   fontFamily: "Poppins, sans-serif",
                   color: "#3C4263",
                   fontWeight: "bold",
+                  width: "11%"
                 }}
               >
                 Total
@@ -78,6 +81,7 @@ export default function BasicTable() {
                   fontFamily: "Poppins, sans-serif",
                   color: "#3C4263",
                   fontWeight: "bold",
+                  width:"23%"
                 }}
               >
                 Name
@@ -89,6 +93,7 @@ export default function BasicTable() {
                   fontFamily: "Poppins, sans-serif",
                   color: "#3C4263",
                   fontWeight: "bold",
+                  width:"23%"
                 }}
               >
                 Phone Number
@@ -100,70 +105,74 @@ export default function BasicTable() {
                   fontFamily: "Poppins, sans-serif",
                   color: "#3C4263",
                   fontWeight: "bold",
+                  width:"23%"
                 }}
               >
                 Address
               </TableCell>
             </TableRow>
-            <TableRow>
-              <TableCell>
-                <Typography
-                  sx={{
-               
-                    color: "#7743DB",
-                    fontWeight: "bold",
-                    fontSize: "20px",
-                  }}
-                >
-                  $20.15
-                </Typography>
-              </TableCell>
-              <TableCell
-                sx={{
-                  color: "#7743DB",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                20
-              </TableCell>
-              <TableCell
-                sx={{
-                  color: "#7743DB",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                400
-              </TableCell>
-              <TableCell
-                sx={{
-                  color: "#7743DB",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-                Khalid dahir
-              </TableCell>
-              <TableCell
-                sx={{
-                  color: "#7743DB",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-           9055280389514
-              </TableCell>
-              <TableCell
-                sx={{
-                  color: "#7743DB",
-                  fontWeight: "bold",
-                  fontSize: "15px",
-                }}
-              >
-             kaan 1 sk ankara
-              </TableCell>
-            </TableRow>
+            {salesdata &&  salesdata.map((s) => {
+              return (
+                <TableRow>
+                  <TableCell>
+                    <Typography
+                      sx={{
+                        color: "#7743DB",
+                        fontWeight: "bold",
+                        fontSize: "20px",
+                      }}
+                    >
+                      ${s.amountPayed}
+                    </Typography>
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#7743DB",
+                      fontWeight: "bold",
+                      fontSize: "15px",
+                    }}
+                  >
+                    {s.quantity}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#7743DB",
+                      fontWeight: "bold",
+                      fontSize: "15px",
+                    }}
+                  >
+                    ${s.total}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#7743DB",
+                      fontWeight: "bold",
+                      fontSize: "15px",
+                    }}
+                  >
+                    {s.buyernme}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#7743DB",
+                      fontWeight: "bold",
+                      fontSize: "15px",
+                    }}
+                  >
+                    {s.buyerPhoneNumber}
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      color: "#7743DB",
+                      fontWeight: "bold",
+                      fontSize: "15px",
+                    }}
+                  >
+                    {s.buyerAddress}
+                  </TableCell>
+                </TableRow>
+              );
+            })}
           </TableBody>
         </Table>
         <Table>

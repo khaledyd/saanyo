@@ -39,7 +39,7 @@ function App() {
             element={currentUser ? <Allstoresales /> : <Login />}
           />
           <Route
-            path="/Singlesale"
+            path="/Singlesale/:id"
             element={currentUser ? <Singlesale /> : <Login />}
           />
           <Route path="/Purchase/:id" element={<Purchase />} />

@@ -3,8 +3,18 @@ import { Box, padding } from "@mui/system";
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import logouts from "./images/logout.png";
+import home from "./images/home.png";
+import settings from "./images/settings.png";
+import help from "./images/help.png";
+import store from "./images/store.png";
+import transec from "./images/transec.png";
+import logo from "./images/logo.png";
+import { logout } from "../../Redux/userSlice";
+import { useDispatch } from "react-redux";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
     <Box
@@ -15,7 +25,7 @@ const Sidebar = () => {
     >
       <Box>
         <img
-          src="./images/logo.png"
+          src={logo}
           alt="logo-sidebar"
           style={{
             width: "100px",
@@ -38,7 +48,7 @@ const Sidebar = () => {
           }}
         >
           <img
-            src="./images/home.png"
+            src={home}
             alt="home"
             style={{
               width: "40px",
@@ -65,7 +75,7 @@ const Sidebar = () => {
           }}
         >
           <img
-            src="./images/transec.png"
+            src={transec}
             alt="home"
             style={{
               width: "40px",
@@ -92,7 +102,7 @@ const Sidebar = () => {
           }}
         >
           <img
-            src="./images/settings.png"
+            src={settings}
             alt="settings"
             style={{
               width: "40px",
@@ -119,7 +129,7 @@ const Sidebar = () => {
           }}
         >
           <img
-            src="./images/store.png"
+            src={store}
             alt="store"
             style={{
               width: "40px",
@@ -133,9 +143,9 @@ const Sidebar = () => {
               fontSize: "18px",
 
               fontFamily: "Poppins, sans-serif",
-              cursor:"pointer"
+              cursor: "pointer",
             }}
-            onClick={()=> navigate("/orders")}
+            onClick={() => navigate("/orders")}
           >
             Orders
           </Typography>
@@ -148,7 +158,7 @@ const Sidebar = () => {
           }}
         >
           <img
-            src="./images/help.png"
+            src={help}
             alt="help"
             style={{
               width: "40px",
@@ -212,7 +222,7 @@ const Sidebar = () => {
           alignItems: "center",
         }}
       >
-        <img src="./images/logout.png" alt="logout" />
+        <img src={logouts} alt="logout" />
         <Typography
           sx={{
             marginLeft: "10px",
@@ -221,6 +231,7 @@ const Sidebar = () => {
 
             fontFamily: "Poppins, sans-serif",
           }}
+          onClick={() => dispatch(logout())}
         >
           {" "}
           Logout

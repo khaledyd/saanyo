@@ -4,8 +4,28 @@ import React from "react";
 import PaymentIcon from "@mui/icons-material/Payment";
 import ReplyIcon from "@mui/icons-material/Reply";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import notifications from "./images/notifications.png"
 
-const Nav = ({ handleOrder, orders }) => {
+
+
+const Nav = ({ handleOrder, orders, user }) => {
+  const { currentUser } = useSelector((state) => state.user);
+  const allorders = orders;
+  let totalsales = [];
+  for (let i = 0; i < allorders.length; i++) {
+    const newone = allorders[i].sales.length;
+    totalsales.push(newone);
+  }
+
+  const initialValue = 0;
+  const finalsales = totalsales.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    initialValue
+  );
+  console.log(finalsales);
+
+  console.log(allorders);
   return (
     <Box
       sx={{
@@ -23,7 +43,7 @@ const Nav = ({ handleOrder, orders }) => {
         }}
       >
         <img
-          src="./images/notifications.png"
+          src={notifications}
           alt="Notification"
           style={{
             marginRight: "10px",
@@ -39,7 +59,7 @@ const Nav = ({ handleOrder, orders }) => {
             textTransform: "unset !important",
           }}
         >
-          Khalid dahir
+          {currentUser.displayName}
         </Button>
       </Box>
 
@@ -93,7 +113,7 @@ const Nav = ({ handleOrder, orders }) => {
                     fontFamily: "Poppins, sans-serif",
                   }}
                 >
-                  Today's balance
+                  Store Balnce
                 </Typography>
                 <Typography
                   sx={{
@@ -104,7 +124,7 @@ const Nav = ({ handleOrder, orders }) => {
                     marginLeft: "20px",
                   }}
                 >
-                  150
+                  ${user}
                 </Typography>
               </Box>
               <Box
@@ -120,7 +140,7 @@ const Nav = ({ handleOrder, orders }) => {
                     fontFamily: "Poppins, sans-serif",
                   }}
                 >
-                  last month's balance
+                  total Orders
                 </Typography>
                 <Typography
                   sx={{
@@ -131,7 +151,7 @@ const Nav = ({ handleOrder, orders }) => {
                     marginLeft: "20px",
                   }}
                 >
-                  150
+                  {orders.length}
                 </Typography>
               </Box>
               <Box sx={{}}>
@@ -143,7 +163,7 @@ const Nav = ({ handleOrder, orders }) => {
                     fontFamily: "Poppins, sans-serif",
                   }}
                 >
-                  Total balance
+                  Total sales
                 </Typography>
                 <Typography
                   sx={{
@@ -154,8 +174,18 @@ const Nav = ({ handleOrder, orders }) => {
                     marginLeft: "20px",
                   }}
                 >
-                  150
+                  {finalsales}
                 </Typography>
+
+                <Typography
+                  sx={{
+                    fontSize: "25px",
+                    color: "#FFF",
+                    marginBottom: "10px",
+                    fontFamily: "Poppins, sans-serif",
+                    marginLeft: "20px",
+                  }}
+                ></Typography>
               </Box>
             </Box>
           </Box>
@@ -178,7 +208,7 @@ const Nav = ({ handleOrder, orders }) => {
                   color: "#fff",
                 }}
               />
-              Create Order
+              Ctreate Order
             </Button>
 
             <Button

@@ -2,8 +2,11 @@ import { Button, Typography } from "@mui/material";
 import { Box, padding } from "@mui/system";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../../Redux/userSlice";
+import { useDispatch } from "react-redux";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
     <Box
@@ -211,6 +214,7 @@ const Sidebar = () => {
           alignItems: "center",
  
         }}
+        onClick={() => dispatch(logout())}
       >
         <img src="./images/logout.png" alt="logout" />
         <Typography sx={{
@@ -219,7 +223,10 @@ const Sidebar = () => {
               fontSize: "18px",
 
               fontFamily: "Poppins, sans-serif",
-        }}> Logout</Typography>
+
+        }}
+        
+        > Logout</Typography>
       </Box>
     </Box>
   );

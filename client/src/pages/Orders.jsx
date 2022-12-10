@@ -1,4 +1,13 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Table,
+  TableCell,
+  TableHead,
+  TableRow,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import Storesidebar from "../components/storedashboard/Storesidebar";
 import OrderLists from "../components/orders/OrderLists";
@@ -44,6 +53,31 @@ const Dashboard = () => {
             paddingTop: "1%",
           }}
         >
+          <Table sx={{ width: "100%" }} aria-label="simple table">
+            <TableHead
+              sx={{
+                backgroundColor: "#3C4263",
+              }}
+            >
+              <TableRow
+                sx={{
+                  width: "100%",
+                  backgroundColor: "#3C4263",
+                }}
+              >
+                <TableCell
+                  sx={{
+                    backgroundColor: "#3C4263",
+                    fontSize: "20px",
+                    color: "#FFFFFF",
+                    fontFamily: "Poppins, sans-serif",
+                  }}
+                >
+                  list of the Orders
+                </TableCell>
+              </TableRow>
+            </TableHead>
+          </Table>
           {orders.map((o) => {
             return <OrderLists orders={o} />;
           })}

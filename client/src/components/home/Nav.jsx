@@ -3,6 +3,7 @@ import { Box, Button, CardMedia, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
+import logo from ".././storedashboard/images/logo.png"
 
 const Nav = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Nav = () => {
         }}
       >
         <img
-          src="./images/logo.png"
+          src={logo}
           alt="logo"
           style={{
             width: "100px",

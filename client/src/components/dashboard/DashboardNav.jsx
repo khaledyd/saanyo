@@ -9,7 +9,7 @@ import StoreIcon from "@mui/icons-material/Store";
 
 const Nav = ({ userdata }) => {
   const { currentUser } = useSelector((state) => state.user);
-  const username = <state className="user"> Q Q Q</state>;
+ 
   const navigate = useNavigate();
   return (
     <Box

@@ -6,8 +6,12 @@ import ReplyIcon from "@mui/icons-material/Reply";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import TitleIcon from "@mui/icons-material/Title";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import notifications from "../storedashboard/images/notifications.png";
+import { useLocation } from "react-router-dom";
 
-const Nav = () => {
+const Nav = ({ order, orderbalance }) => {
+  const locations = useLocation();
+
   return (
     <Box
       sx={{
@@ -25,7 +29,7 @@ const Nav = () => {
         }}
       >
         <img
-          src="./images/notifications.png"
+          src={notifications}
           alt="Notification"
           style={{
             marginRight: "10px",
@@ -101,7 +105,7 @@ const Nav = () => {
                   marginLeft: "10px",
                 }}
               >
-                Id: 12111232
+                {order._id}
               </Typography>
             </Box>
             <Box
@@ -130,7 +134,7 @@ const Nav = () => {
                   color: "#fff",
                 }}
               >
-                Title: cake
+                {order.productTitle}
               </Typography>
             </Box>
             <Box
@@ -159,7 +163,7 @@ const Nav = () => {
                   color: "#fff",
                 }}
               >
-                Price: $100
+                {order.price}
               </Typography>
             </Box>
           </Box>
@@ -167,7 +171,7 @@ const Nav = () => {
         <Box
           sx={{
             marginTop: "10px",
-            marginBottom:"30px"
+            marginBottom: "30px",
           }}
         >
           <Typography
@@ -188,7 +192,7 @@ const Nav = () => {
               latterSpacing: "1.5px",
             }}
           >
-            10,000
+            ${orderbalance}
           </Typography>
         </Box>
       </Box>

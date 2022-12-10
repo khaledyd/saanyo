@@ -12,16 +12,42 @@ import { useNavigate } from "react-router-dom";
 
 export default function BasicTable({ orders }) {
   const navigate = useNavigate();
-  const copylink = ()=>{
-const url = "http://localhost:3000/orders" + orders._id
+  const copylink = () => {
+    const url = "http://localhost:3000/orders" + orders._id;
+  };
+
+  const allsales = orders.sales;
+
+  const newarray = allsales;
+  let final = [];
+  for (let i = 0; i < newarray.length; i++) {
+    const newone = newarray[i].total;
+    final.push(newone);
   }
+
+  console.log(final);
+  const initialValue = 0;
+  const finalarray = final.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    initialValue
+  );
+
+  const redirectToAbout = () => {
+    navigate(`/Singlesale/${orders._id}`, {
+        state: {
+            orderRevenue: finalarray
+         
+        },
+    });
+  };
+  console.log(finalarray);
   return (
     <Box
       sx={{
         width: "90%",
         backgroundColor: "#fff",
         marginLeft: "1%",
-        paddingTop: "5%",
+
         paddingLeft: "5%",
         height: "max-content",
       }}
@@ -29,36 +55,10 @@ const url = "http://localhost:3000/orders" + orders._id
       <TableContainer
         component={Box}
         sx={{
-          width: "75%",
+          width: "90%",
           height: "max-content",
         }}
       >
-        <Table sx={{ width: "100%" }} aria-label="simple table">
-          <TableHead
-            sx={{
-              backgroundColor: "#3C4263",
-            }}
-          >
-            <TableRow
-              sx={{
-                width: "100%",
-                backgroundColor: "#3C4263",
-              }}
-            >
-              <TableCell
-                sx={{
-                  backgroundColor: "#3C4263",
-                  fontSize: "20px",
-                  color: "#FFFFFF",
-                  fontFamily: "Poppins, sans-serif",
-                }}
-              >
-                list of the Orders
-              </TableCell>
-            </TableRow>
-          </TableHead>
-        </Table>
-
         <Table>
           <TableBody>
             <TableRow>
@@ -108,7 +108,7 @@ const url = "http://localhost:3000/orders" + orders._id
                   fontWeight: "bold",
                 }}
               >
-                price
+                Revenue
               </TableCell>
               <TableCell
                 sx={{
@@ -141,6 +141,7 @@ const url = "http://localhost:3000/orders" + orders._id
                     color: "#7743DB",
                     fontSize: "16px",
                   }}
+                  onClick={redirectToAbout}
                 >
                   {orders._id}
                 </Typography>
@@ -161,7 +162,7 @@ const url = "http://localhost:3000/orders" + orders._id
                   fontSize: "15px",
                 }}
               >
-                $ {orders.price}
+                $ {finalarray}
               </TableCell>
               <TableCell
                 sx={{
@@ -179,15 +180,15 @@ const url = "http://localhost:3000/orders" + orders._id
                   fontSize: "15px",
                 }}
               >
-                <Button sx={{
-                  backgroundColor: "#7743db",
-                  color: "#ffF",
-                  
-                  
-
-                }}
-                onClick={()=> navigate(`/Purchase/${orders._id}`)}
-                >Link</Button>
+                <Button
+                  sx={{
+                    backgroundColor: "#7743db",
+                    color: "#ffF",
+                  }}
+                  onClick={() => navigate(`/Purchase/${orders._id}`)}
+                >
+                  Link
+                </Button>
               </TableCell>
             </TableRow>
           </TableBody>
