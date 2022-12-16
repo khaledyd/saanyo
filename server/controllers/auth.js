@@ -4,6 +4,8 @@ import bcrypt from "bcryptjs";
 import Lots from "../models/Lots.js";
 import { createError } from "../error.js";
 import jwt from "jsonwebtoken";
+import Otbcode from "../models/Otbcode.js";
+import nodemailer from "nodemailer";
 
 export const signup = async (req, res, next) => {
   /*try {
@@ -141,3 +143,90 @@ export const googleAuth = async (req, res, next) => {
     next(err);
   }
 };
+
+//veryfy
+
+export const verify = async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email });
+    !user && res.status(400).json("Wrong credentials!");
+    const userr = await Otbcode.findOne({ code: req.body.code });
+    !userr && res.status(400).json("Wrong otp!");
+    const userrr = await Otbcode.findOne({ email: req.body.email });
+    if (user.email === userrr.email) {
+      const { password, ...others } = user._doc;
+      res.status(200).json(others);
+    } else {
+      res.status(500).json(others);
+    }
+  } catch (err) {
+    res.status(500).json("wrong credentials");
+  }
+};
+
+////////////////////////////////////////////////////////////////
+
+//////////////////////////////send otp
+
+export const SendOtb = async (req, res) => {
+  const email = req.body.email;
+
+  // Check if email exists
+  const userExists = await User.findOne({ email });
+  if (!userExists)
+    return res.status(400).send({ message: "email not registered" });
+
+  console.log(userExists.email);
+
+  // Delete previous OTP codes;
+  const previousOTPs = await Otbcode.find({ email: email });
+ 
+  for (let previousOTP of previousOTPs) {
+    Otbcode.findOneAndDelete(email, function (err, result) {
+      if (err) {
+        console.log(err);
+      }
+    });
+  }
+
+  const generatedOTP = Math.floor(1000 + Math.random() * 9000);
+  try {
+    await Otbcode.create({
+      email: userExists.email,
+      code: generatedOTP,
+    });
+
+    sendEmail(generatedOTP, userExists.email);
+  } catch (error) {
+    console.log(error);
+  }
+
+  return res.status(200).send({ message: "OTP Sent" });
+};
+
+////////////// send email
+
+function sendEmail(code, receiver) {
+  const yourEmail = process.env.email;
+  const yourPassword = process.env.appPassword;
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: yourEmail,
+      pass: yourPassword,
+    },
+  });
+  const mailOptions = {
+    from: yourEmail,
+    to: `${receiver}`,
+    subject: "Verification Code",
+    text: `Dear User, your verification code is ${code}.`,
+  };
+
+  transporter.sendMail(mailOptions, function (error, info) {
+    if (error) {
+      console.log(error);
+    }
+  });
+}

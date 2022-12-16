@@ -7,9 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import StoreIcon from "@mui/icons-material/Store";
 
-const Nav = ({ userdata }) => {
+const Nav = ({ userdata, sidebar }) => {
   const { currentUser } = useSelector((state) => state.user);
- 
+
   const navigate = useNavigate();
   return (
     <Box
@@ -20,33 +20,6 @@ const Nav = ({ userdata }) => {
         marginLeft: "10%",
       }}
     >
-      <Box
-        sx={{
-          marginLeft: "80%",
-          display: "flex",
-          marginTop: "20px",
-        }}
-      >
-        <img
-          src="./images/notifications.png"
-          alt="Notification"
-          style={{
-            marginRight: "10px",
-          }}
-        />
-        <Button
-          sx={{
-            width: "max-content",
-            padding: "5px 30px",
-            backgroundColor: "#7743DB",
-            borderRadius: "20px",
-            color: "white",
-            textTransform: "unset !important",
-          }}
-        >
-          {currentUser.displayName}
-        </Button>
-      </Box>
       <Box>
         <Box
           sx={{
@@ -65,7 +38,17 @@ const Nav = ({ userdata }) => {
           >
             Overview
           </Typography>
-          <Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: {
+                xs: "column",
+                md: "row",
+                sm: "row",
+                lg: "row",
+              },
+            }}
+          >
             <Button
               onClick={() => navigate("/Sendmoney")}
               sx={{
@@ -97,6 +80,12 @@ const Nav = ({ userdata }) => {
                 textTransform: "unset !important",
                 marginRight: "10px",
                 border: "1px solid ##3C4263",
+                marginTop :{
+                  xs:"10px",
+                  sm:"0px",
+                  lg :"0px",
+                  md:"0px"
+                }
               }}
               onClick={() => navigate("/StoreDashboard")}
             >
@@ -106,7 +95,7 @@ const Nav = ({ userdata }) => {
                   color: "#7743DB",
                 }}
               />
-              Store
+              about stores
             </Button>
           </Box>
         </Box>
@@ -133,7 +122,7 @@ const Nav = ({ userdata }) => {
               latterSpacing: "1.5px",
             }}
           >
-            ${userdata}
+            {userdata}
           </Typography>
         </Box>
       </Box>

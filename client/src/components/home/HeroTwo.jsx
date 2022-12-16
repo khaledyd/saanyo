@@ -6,9 +6,10 @@ const HeroTwo = () => {
     <Box
       sx={{
         width: "100%",
-        height: "400px",
+        height: "max-content",
         backgroundColor: "#F5F5F5",
-        marginBottom:"100px"
+        marginBottom:"100px",
+        paddingBottom:"40px"
       }}
     >
       <Box>
@@ -63,7 +64,7 @@ const HeroTwo = () => {
       </Box>
       <Button
         sx={{
-          width: "10%",
+          width: "max-content",
           backgroundColor: "#7743DB",
           color: "white",
           textTransform: "unset !important",

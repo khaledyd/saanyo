@@ -4,6 +4,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../../Redux/userSlice";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -11,23 +12,10 @@ const Sidebar = () => {
   return (
     <Box
       sx={{
-        width: "20%",
+        width: "100%",
         height: "max-content",
-
       }}
     >
-      <Box>
-        <img
-          src="./images/logo.png"
-          alt="logo-sidebar"
-          style={{
-            width: "100px",
-            height: "100px",
-            marginLeft: "40px",
-            marginTop: "20px",
-          }}
-        />
-      </Box>
       <Box
         sx={{
           marginLeft: "30px",
@@ -93,6 +81,7 @@ const Sidebar = () => {
             alignItems: "center",
             marginTop: "20px",
           }}
+          onClick={() => navigate("/settings")}
         >
           <img
             src="./images/settings.png"
@@ -100,6 +89,7 @@ const Sidebar = () => {
             style={{
               width: "40px",
               height: "40px",
+              cursor: "pointer",
             }}
           />
           <Typography
@@ -107,7 +97,7 @@ const Sidebar = () => {
               marginLeft: "10px",
               color: "#3C4263",
               fontSize: "18px",
-
+              cursor: "pointer",
               fontFamily: "Poppins, sans-serif",
             }}
           >
@@ -128,7 +118,7 @@ const Sidebar = () => {
               width: "40px",
               height: "40px",
             }}
-            onClick={()=> navigate('/Storedashboard')}
+            onClick={() => navigate("/Storedashboard")}
           />
           <Typography
             sx={{
@@ -212,21 +202,22 @@ const Sidebar = () => {
           marginLeft: "5%",
           display: "flex",
           alignItems: "center",
- 
         }}
         onClick={() => dispatch(logout())}
       >
         <img src="./images/logout.png" alt="logout" />
-        <Typography sx={{
-                  marginLeft: "10px",
-              color: "#3C4263",
-              fontSize: "18px",
+        <Typography
+          sx={{
+            marginLeft: "10px",
+            color: "#3C4263",
+            fontSize: "18px",
 
-              fontFamily: "Poppins, sans-serif",
-
-        }}
-        
-        > Logout</Typography>
+            fontFamily: "Poppins, sans-serif",
+          }}
+        >
+          {" "}
+          Logout
+        </Typography>
       </Box>
     </Box>
   );

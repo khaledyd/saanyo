@@ -3,11 +3,12 @@ import { Box, Button, CardMedia, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useNavigate } from "react-router-dom";
-import logo from ".././storedashboard/images/logo.png";
+import logo from "../components/storedashboard/images/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 
-const Nav = () => {
+const Nav = ({ handlesidebar, sidebar }) => {
   const [menu, setMenu] = useState(true);
   const [submenu, setsubmenu] = useState(true);
   const navigate = useNavigate();
@@ -65,19 +66,37 @@ const Nav = () => {
           }}
           display={"flex"}
         >
-          <MenuIcon
-            onClick={() => setMenu(!menu)}
-            sx={{
-              fontSize: "40px",
-              display: {
-                lg: "none",
-                md: "none",
-                sm: "block",
-                xs: "block",
-              },
-              cursor: "pointer",
-            }}
-          />
+          <Box>
+            {sidebar ? (
+              <CloseIcon
+                onClick={handlesidebar}
+                sx={{
+                  fontSize: "40px",
+                  display: {
+                    lg: "none",
+                    md: "none",
+                    sm: "block",
+                    xs: "block",
+                  },
+                  cursor: "pointer",
+                }}
+              />
+            ) : (
+              <MenuIcon
+                onClick={handlesidebar}
+                sx={{
+                  fontSize: "40px",
+                  display: {
+                    lg: "none",
+                    md: "none",
+                    sm: "block",
+                    xs: "block",
+                  },
+                  cursor: "pointer",
+                }}
+              />
+            )}
+          </Box>
 
           <img
             src={logo}
@@ -91,64 +110,11 @@ const Nav = () => {
             onClick={() => navigate("/")}
           />
         </Box>
-        {menu ? (
-          <Box
-            display={"flex"}
-            sx={{
-              width: "60%",
-              color: "#3F3D56",
-              fontFamily: "Poppins, sans-serif",
-              flexDirection: {
-                lg: " row",
-                md: "row",
-                sm: "column",
-                xs: "column",
-              },
-       
-              
-            }}
-          >
-            <Typography
-              sx={{
-                padding: "10px 20px",
-                fontSize:"20px"
-              }}
-            >
-              Producrs
-            </Typography>
-            <Typography
-              sx={{
-                padding: "10px 20px",
-                fontSize:"20px"
-              }}
-            >
-              About us
-            </Typography>
-            <Typography
-              sx={{
-                padding: "10px 20px",
-                fontSize:"20px"
-              }}
-            >
-              Help
-            </Typography>
-            <Typography
-              sx={{
-                padding: "10px 20px",
-                fontSize:"20px"
-              }}
-            >
-              Features
-            </Typography>
-          </Box>
-        ) : (
-          ""
-        )}
       </Box>
 
       <Box
         sx={{
-          width: { md: "20%", sm: "35%" },
+          width: { md: "10%", sm: "20%", xs: "10%", lg: "10%" },
           display: "flex",
           alignItems: "center",
           marginRight: "20px",
@@ -186,16 +152,7 @@ const Nav = () => {
           </Button>
         )}
         {currentUser ? (
-          <Button
-            sx={{
-              backgroundColor: "#7743DB",
-              color: "#fff",
-              width: "100px",
-              marginTop: { lg: "0px", md: "0px", sm: "10px", xs: "10px" },
-            }}
-          >
-            <NotificationsIcon />
-          </Button>
+          ""
         ) : (
           <Button
             sx={{

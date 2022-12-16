@@ -9,9 +9,12 @@ import Singlesale from "./pages/Singlesale";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Purchase from "./pages/Purchase";
 import { useSelector } from "react-redux";
-import Orders from "./pages/Orders"
-import Sendmoney from "./pages/Sendmoney"
-import Settings from "./pages/Settings"
+import Orders from "./pages/Orders";
+import Sendmoney from "./pages/Sendmoney";
+import Settings from "./pages/Settings";
+import ForgetPassword from "./pages/ForgetPassword";
+import Updatepassword from "./pages/Updatepassword";
+import MinitransectionsRecived from "./components/dashboard/MinitransectionsRecived";
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -47,13 +50,19 @@ function App() {
             path="/orders"
             element={currentUser ? <Orders /> : <Login />}
           />
-             <Route
+          <Route
             path="/Sendmoney"
             element={currentUser ? <Sendmoney /> : <Login />}
           />
-           <Route
+          <Route
             path="/Settings"
             element={currentUser ? <Settings /> : <Login />}
+          />
+          <Route path="/ForgetPassword" element={<ForgetPassword />} />
+          <Route path="/Updatepassword/:id" element={<Updatepassword />} />
+          <Route
+            path="/MinitransectionsRecived"
+            element={<MinitransectionsRecived />}
           />
         </Routes>
       </BrowserRouter>

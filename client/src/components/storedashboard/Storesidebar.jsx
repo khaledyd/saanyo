@@ -99,7 +99,10 @@ const Sidebar = () => {
             display: "flex",
             alignItems: "center",
             marginTop: "20px",
+            cursor: "pointer",
+            
           }}
+          onClick = {()=> navigate("/settings")}
         >
           <img
             src={settings}

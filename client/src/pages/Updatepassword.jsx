@@ -1,46 +1,45 @@
 import React from "react";
 import { borderColor, Box } from "@mui/system";
 import { Button, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-import axios from "axios";
 import Nav from "../components/home/Nav";
+import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { loginFailure, loginStart, loginSuccess } from "../Redux/userSlice";
+import { useLocation } from "react-router-dom";
 
-const Signup = () => {
-  const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser);
-  const [displayName, setdisplayName] = useState("");
-  const [email, setEmail] = useState("");
+const Login = () => {
+  const locations = useLocation();
+  console.log(locations);
+  const useriD = locations.state.userdata._id;
+  console.log(useriD);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [confirmPassword, setConfrimpasword] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();
-
-  const handlesubmit = async (e) => {
+  const chanepassword = async (e) => {
     e.preventDefault();
     if (password) {
       try {
-        const res = await axios.put(`/users/${currentUser._id}`, {
-          email: email,
+        const res = await axios.put(`/users/${useriD}`, {
           password: password,
-          displayName: displayName,
         });
         console.log(res.data);
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
     } else {
-      console.log("Error");
+      console.log("passwrod and confiirm password must be same");
     }
   };
-
   return (
     <Box>
       <Nav />
-
       <Box
         sx={{
-          marginTop: "1%",
+          marginTop: "3%",
           width: "100%",
         }}
       >
@@ -60,10 +59,10 @@ const Signup = () => {
             variant="h4"
             sx={{
               color: "#7743DB",
-              marginBottom:"20px"
+              marginBottom: "40px",
             }}
           >
-            Update Account
+            change password
           </Typography>
           <Box
             display={"flex"}
@@ -76,60 +75,68 @@ const Signup = () => {
           >
             <TextField
               id="outlined-basic"
-              label="Fullname"
-              type={"email"}
-              variant="outlined"
-              sx={{
-                width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
-                marginTop: "10px",
-              }}
-              onChange={(e) => setdisplayName(e.target.value)}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Email"
-              type={"email"}
-              variant="outlined"
-              sx={{
-                width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
-                marginTop: "10px",
-              }}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              id="outlined-basic"
-              label="Password"
+              label="password"
               type={"password"}
               variant="outlined"
               sx={{
                 width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
                 marginTop: "10px",
+                borderRadius: "30px",
+                textTransform: "unset !important",
               }}
               onChange={(e) => setPassword(e.target.value)}
             />
-
+            <TextField
+              id="outlined-basic"
+              type={"password"}
+              label="confrim password"
+              variant="outlined"
+              sx={{
+                width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
+                marginTop: "10px",
+              }}
+              onChange={(e) => setConfrimpasword(e.target.value)}
+            />
             <Box
               sx={{
                 width: "50%",
               }}
             >
               <Button
-                variant="contained"
+                onClick={chanepassword}
                 sx={{
-                  width: "100%",
+                  width: "60%",
                   marginTop: "10px",
+
+                  marginLeft: "-70px",
                   backgroundColor: "#7743DB",
+                  color: "#fff",
                 }}
-                onClick={handlesubmit}
               >
-                update info
+                Log in
               </Button>
+
               <Box
                 justifyContent={"flex-start"}
                 sx={{
                   marginLeft: "-70px",
                 }}
-              ></Box>
+              >
+                <Typography
+                  sx={{
+                    color: "##3F3D56",
+                  }}
+                >
+                  Sing up
+                </Typography>
+                <Typography
+                  sx={{
+                    color: "#3F3D56",
+                  }}
+                >
+                  Forget password
+                </Typography>
+              </Box>
             </Box>
           </Box>
         </Box>
@@ -138,4 +145,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;

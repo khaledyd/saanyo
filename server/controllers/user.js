@@ -2,9 +2,14 @@ import { createError } from "../error.js";
 import Orders from "../models/Orders.js";
 import User from "../models/User.js";
 import Video from "../models/Video.js";
+import bcrypt from "bcryptjs";
 
 export const update = async (req, res, next) => {
   if (req.params.id === req.user.id) {
+    if (req.body.password) {
+      const salt = await bcrypt.genSalt(10);
+      req.body.password = await bcrypt.hash(req.body.password, salt);
+    }
     try {
       const updatedUser = await User.findByIdAndUpdate(
         req.params.id,
@@ -345,8 +350,7 @@ export const sendMoney = async (req, res, next) => {
 
           const reciverupdatedBlance = await User.findByIdAndUpdate(
             req.body.id,
-            { $set: { "wallet.balance": newReciverBlance } },
-       
+            { $set: { "wallet.balance": newReciverBlance } }
           );
 
           const updaterecivedarraydata = await User.findByIdAndUpdate(
@@ -468,24 +472,52 @@ export const latesttrasections = async (req, res, next) => {
   }
 };
 
+////
+
 export const updateuser = async (req, res, next) => {
+  const id = req.params.id;
+
   try {
-    if (!req.params.id) {
-      res.status(500).json("you are not authenticated ");
+    if (!id) {
+      res.status(404).json("user not found");
     } else {
+      //res.status(500).json("you are not authenticated ");
+      res.status.json("hi");
+    }
+  } catch (err) {
+    res.status(500).json("server error");
+  }
+};
+
+/*  const email = req.body.email;
+      const displayName = req.body.displayName;
       const udapteduser = await User.findByIdAndUpdate(
-        req.params.id,
+        userd,
         {
           $set: {
-            displayName: req.body.displayName,
-            email: req.body.email,
-            password: req.body.password,
+            displayName: displayName,
+            email: email,
           },
         },
         { new: true }
-
       );
-      res.status(200).json(udapteduser);
-    }
-  } catch (err) {}
-};
+      const npassword = req.body.password;
+      const nconfirmPassword = req.body.confirmPassword;
+      const salt = await bcrypt.genSalt(10);
+      const hashedPass = await bcrypt.hash(npassword, salt);
+
+      const saltt = await bcrypt.genSalt(10);
+      const hashedPasss = await bcrypt.hash(nconfirmPassword, saltt);
+
+      if (npassword !== nconfirmPassword) {
+        return res.status(500).send({ message: "Passwords Must be same" });
+      } else {
+        const updateduser = await User.findByIdAndUpdate(req.params.id, {
+          $set: {
+            password: hashedPass,
+            confirmPassword: hashedPasss,
+          },
+        });
+
+        res.status(200).json(updateduser);
+      } */

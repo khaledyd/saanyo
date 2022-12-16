@@ -9,8 +9,14 @@ const Services = () => {
       flexDirection="column"
       sx={{
         marginTop: "100px",
-        width: "100%",
-        marginBottom:"100px"
+        width: {
+          lg: "100%",
+          md: "100%",
+          xs: "100%",
+          sm: "100%",
+        },
+        marginBottom: "100px",
+        height: "max-content",
       }}
     >
       <Box
@@ -35,14 +41,42 @@ const Services = () => {
         display={"flex"}
         sx={{
           width: "100%",
-          justifyContent: "space-between",
+          height: "max-content",
+          justifyContent: {
+            lg: "space-between",
+            md: "space-between",
+            sm: "center",
+            xs: "center",
+          },
+          alignItems: {
+            lg: "center",
+            sm: "center",
+            xs: "center",
+            md: "center",
+          },
           marginTop: "100px",
+          flexDirection: {
+            lg: "row",
+            md: "row",
+            sm: "column",
+            xs: "column",
+          },
         }}
       >
         <Box
           sx={{
-            width: "33%",
-            marginLeft: "30px",
+            width: {
+              lg: "33%",
+              md: "33%",
+              sm: "60%",
+              xs: "60%",
+            },
+
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "max-content",
           }}
         >
           <Box>
@@ -68,10 +102,16 @@ const Services = () => {
           </Typography>
           <Typography
             sx={{
-              width: "50%",
+              width: {
+                lg: "50%",
+                md: "50%",
+                sm: "60%",
+                xs: "60%",
+              },
               color: "#3F3D56",
-              fontSize: "13px",
+              fontSize: "20px",
               marginTop: "7px",
+              height: "max-content",
             }}
           >
             Add the product details And create the product Url all the
@@ -80,13 +120,28 @@ const Services = () => {
         </Box>
         <Box
           sx={{
-            width: "33%",
+            width: {
+              lg: "33%",
+              md: "33%",
+              sm: "60%",
+              xs: "60%",
+            },
+            marginTop: {
+              lg: "0px",
+              md: "0px",
+              sm: "30px",
+              xs: "30px",
+            },
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <Box>
             <img
               src="./images/send.png"
-              alt="send"
+              alt="buy"
               style={{
                 width: "100px",
                 height: "100px",
@@ -106,19 +161,40 @@ const Services = () => {
           </Typography>
           <Typography
             sx={{
-              width: "50%",
+              width: {
+                lg: "50%",
+                md: "50%",
+                sm: "60%",
+                xs: "60%",
+              },
               color: "#3F3D56",
-              fontSize: "13px",
+              fontSize: "20px",
               marginTop: "7px",
+              height: "max-content",
             }}
           >
             With simple steps send a money With saanyors and receive money From
-            them{" "}
+            them . a fast way you can experience
           </Typography>
         </Box>
         <Box
           sx={{
-            width: "33%",
+            width: {
+              lg: "33%",
+              md: "33%",
+              sm: "60%",
+              xs: "60%",
+            },
+            marginTop: {
+              lg: "0px",
+              md: "0px",
+              sm: "30px",
+              xs: "30px",
+            },
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <Box>
@@ -144,10 +220,16 @@ const Services = () => {
           </Typography>
           <Typography
             sx={{
-              width: "50%",
+              width: {
+                lg: "50%",
+                md: "50%",
+                sm: "60%",
+                xs: "60%",
+              },
               color: "#3F3D56",
-              fontSize: "13px",
+              fontSize: "20px",
               marginTop: "7px",
+              height: "max-content",
             }}
           >
             Your payment getaway with your Local money system just buy with

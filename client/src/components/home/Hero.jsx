@@ -6,28 +6,61 @@ const Hero = () => {
   return (
     <Box
       sx={{
-        width: "100%",
-        height: "500px",
+        width: {
+          xs: "100%",
+          sm: "100%",
+          lg: "100%",
+          md: "100%",
+        },
+        height: "max-content",
         backgroundColor: "#F7F7F7",
         display: "flex",
+        flexDirection: {
+          lg: "row",
+          md: "row",
+          sm: "column-reverse",
+          xs: "column-reverse",
+        },
+        alignItems: "center",
+        paddingBottom: "30px",
       }}
     >
       <Box
         display={"flex"}
         sx={{
-          width: "50%",
+          width: {
+            lg: "50%",
+            md: "50%",
+            sm: "100%",
+            xs: "100%",
+          },
           height: "100%",
           display: "flex",
-
+          alignItem: {
+            sm: "center",
+            xs: "center",
+          },
+          justifyContent: "center",
           flexDirection: "column",
+
 
         }}
       >
         <Typography
           sx={{
-            fontSize: "50px",
-            lineHeight: "60px",
-            width: "90%",
+            fontSize: {
+              lg: "40px",
+              md: "40px",
+              sm: "30px",
+              xs: "30px",
+            },
+            lineHeight: "50px",
+            width: {
+              lg: "90%",
+              md: "90%",
+              sm: "50%",
+              xs: "50%",
+            },
             fontFamily: "Noticia Text, serif",
             color: "#3F3D56",
             padding: "20px 30px",
@@ -56,11 +89,16 @@ const Hero = () => {
           sx={{
             fontSize: "16px",
 
-            width: "56%",
+            width: {
+              lg: "56%",
+              md: "56%",
+              xs: "30%",
+              sm: "30%",
+            },
             paddingTop: "40px",
             fontFamily: "Poppins, sans-serif",
             color: "#3F3D56",
-            padding: "20px 30px"
+            padding: "20px 30px",
           }}
         >
           Pay with Sanyo and taste{" "}
@@ -73,25 +111,36 @@ const Hero = () => {
           </strong>{" "}
           Is the thing you never tested yet !!
         </Typography>
-        <Button  sx={{
-            width:"30%",
-            backgroundColor:"#7743DB",
-            color:"#fff",
-            marginTop:"10px",
+        <Button
+          sx={{
+            width: "30%",
+            backgroundColor: "#7743DB",
+            color: "#fff",
+            marginTop: "10px",
             fontFamily: "Poppins, sans-serif",
             textTransform: "unset !important",
             marginLeft: "30px",
-    
-        }}>get started</Button>
+          }}
+        >
+          get started
+        </Button>
       </Box>
       <Box
         sx={{
-          width: "50%",
+          width: {
+            lg: "50%",
+            md: "50%",
+            sm: "100%",
+            xs: "100%",
+          },
           height: "100%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-        
+          marginTop: {
+            sm: "40px",
+            xs: "40px",
+          },
         }}
       >
         <img
@@ -100,7 +149,7 @@ const Hero = () => {
           style={{
             width: "100%",
             height: "100%",
-        
+            alignSelf: "center",
           }}
         />
       </Box>
