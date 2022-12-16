@@ -5,20 +5,20 @@ import Sidebar from "../components/dashboard/Sidebar";
 import DashboardNav from "../components/dashboard/DashboardNav";
 import Transections from "../components/dashboard/Transections";
 import { useEffect, useState } from "react";
-import { useSelector  , useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Transectionsc from "../components/dashboard/Transectionsc";
 
 import Allnav from "./Allnav";
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { logout } from "../Redux/userSlice"
+import { logout } from "../Redux/userSlice";
 
 import MinitransectionsRecived from "../components/dashboard/MinitransectionsRecived";
 import MinitransectionsTransfered from "../components/dashboard/MinitransectionsTransfered";
 const Dashboard = () => {
-  const dipatch = useDispatch()
-  
+  const dipatch = useDispatch();
+
   const navigate = useNavigate();
   const [sidebar, setSidebar] = useState(null);
 
@@ -127,9 +127,9 @@ const Dashboard = () => {
                       style={{
                         width: "40px",
                         height: "40px",
-                        cursor:"pointer"
+                        cursor: "pointer",
                       }}
-                      onClick={()=>navigate("/")}
+                      onClick={() => navigate("/")}
                     />
                     <Typography
                       sx={{
@@ -148,9 +148,9 @@ const Dashboard = () => {
                       display: "flex",
                       alignItems: "center",
                       marginTop: "20px",
-                      cursor:"pointer"
+                      cursor: "pointer",
                     }}
-                    onClick={()=>navigate("/settings")}
+                    onClick={() => navigate("/settings")}
                   >
                     <img
                       src="./images/settings.png"
@@ -172,7 +172,6 @@ const Dashboard = () => {
                     >
                       Settings
                     </Typography>
-                    
                   </Box>
                   <Box
                     sx={{
@@ -197,7 +196,7 @@ const Dashboard = () => {
 
                         fontFamily: "Poppins, sans-serif",
                       }}
-                      onClick={()=>navigate("/StoreDashboard")}
+                      onClick={() => navigate("/StoreDashboard")}
                     >
                       Store
                     </Typography>
@@ -225,8 +224,7 @@ const Dashboard = () => {
 
                         fontFamily: "Poppins, sans-serif",
                       }}
-                      onClick={()=> dipatch(logout())}
-                      
+                      onClick={() => dipatch(logout())}
                     >
                       Log out
                     </Typography>

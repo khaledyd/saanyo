@@ -5,9 +5,7 @@ import PaymentIcon from "@mui/icons-material/Payment";
 import ReplyIcon from "@mui/icons-material/Reply";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import notifications from "./images/notifications.png"
-
-
+import notifications from "./images/notifications.png";
 
 const Nav = ({ handleOrder, orders, user }) => {
   const { currentUser } = useSelector((state) => state.user);
@@ -32,37 +30,8 @@ const Nav = ({ handleOrder, orders, user }) => {
         display: "flex",
         flexDirection: "column",
         width: "90%",
-        marginLeft: "10%",
       }}
     >
-      <Box
-        sx={{
-          marginLeft: "80%",
-          display: "flex",
-          marginTop: "20px",
-        }}
-      >
-        <img
-          src={notifications}
-          alt="Notification"
-          style={{
-            marginRight: "10px",
-          }}
-        />
-        <Button
-          sx={{
-            width: "max-content",
-            padding: "5px 30px",
-            backgroundColor: "#7743DB",
-            borderRadius: "20px",
-            color: "white",
-            textTransform: "unset !important",
-          }}
-        >
-          {currentUser.displayName}
-        </Button>
-      </Box>
-
       <Box>
         <Box
           sx={{
@@ -74,11 +43,14 @@ const Nav = ({ handleOrder, orders, user }) => {
         >
           <Box
             sx={{
-              width: "40%",
-              height: "130px",
+              width: "50%",
+              height: "max-content",
               backgroundColor: "#3C4263",
               borderRadius: "20px",
               padding: "30px 30px",
+              marginRight:"20px",
+              marginLeft:"20px"
+
             }}
           >
             <Typography
