@@ -95,7 +95,7 @@ const Nav = ({ userdata, sidebar }) => {
                   color: "#7743DB",
                 }}
               />
-              about stores
+              about the stores
             </Button>
           </Box>
         </Box>
@@ -122,7 +122,7 @@ const Nav = ({ userdata, sidebar }) => {
               latterSpacing: "1.5px",
             }}
           >
-            {userdata}
+            ${userdata}
           </Typography>
         </Box>
       </Box>

@@ -1,8 +1,12 @@
 import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Hero = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -42,8 +46,6 @@ const Hero = () => {
           },
           justifyContent: "center",
           flexDirection: "column",
-
-
         }}
       >
         <Typography
@@ -73,15 +75,14 @@ const Hero = () => {
               color: "#7743DB",
             }}
           >
-            minimum
+            little
           </strong>{" "}
-          effort but the highly effective{" "}
+          effort but highly effective 
           <strong
             style={{
               color: "#7743DB",
             }}
-          >
-            experiences
+          > experiences
           </strong>
           !!!
         </Typography>
@@ -101,15 +102,15 @@ const Hero = () => {
             padding: "20px 30px",
           }}
         >
-          Pay with Sanyo and taste{" "}
+          Pay with Saanyo and taste{" "}
           <strong
             style={{
               color: "#7743DB",
             }}
           >
-            the difference the greatest experience
+            the difference. The greatest experience
           </strong>{" "}
-          Is the thing you never tested yet !!
+          is the one you haven't tried yet !
         </Typography>
         <Button
           sx={{
@@ -120,7 +121,12 @@ const Hero = () => {
             fontFamily: "Poppins, sans-serif",
             textTransform: "unset !important",
             marginLeft: "30px",
+            "&:hover": {
+              backgroundColor: "#3C4263",
+              color: "#fff",
+            },
           }}
+          onClick={() => navigate("/dashboard")}
         >
           get started
         </Button>

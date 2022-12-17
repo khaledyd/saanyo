@@ -6,9 +6,11 @@ import ReplyIcon from "@mui/icons-material/Reply";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import notifications from "./images/notifications.png";
+import { useNavigate } from "react-router-dom";
 
 const Nav = ({ handleOrder, orders, user }) => {
   const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
   const allorders = orders;
   let totalsales = [];
   for (let i = 0; i < allorders.length; i++) {
@@ -39,18 +41,29 @@ const Nav = ({ handleOrder, orders, user }) => {
             justifyContent: "space-between",
             alignItems: "center",
             marginTop: "50px",
+            flexDirection: {
+              xs: "column",
+              sm: "column",
+              md: "row",
+              lg: "row",
+            },
+            marginLeft: "50px",
           }}
         >
           <Box
             sx={{
-              width: "50%",
+              width: {
+                xs: "100%",
+                sm: "100%",
+                lg: "50%",
+                md: "50%",
+              },
               height: "max-content",
               backgroundColor: "#3C4263",
               borderRadius: "20px",
               padding: "30px 30px",
-              marginRight:"20px",
-              marginLeft:"20px"
-
+              marginRight: "20px",
+              marginLeft: "20px",
             }}
           >
             <Typography
@@ -161,7 +174,16 @@ const Nav = ({ handleOrder, orders, user }) => {
               </Box>
             </Box>
           </Box>
-          <Box>
+          <Box
+            sx={{
+              marginTop: {
+                xs: "10px",
+                sm: "10px",
+                lg: "0px",
+                md: "0px",
+              },
+            }}
+          >
             <Button
               sx={{
                 width: "max-content",
@@ -171,6 +193,12 @@ const Nav = ({ handleOrder, orders, user }) => {
                 color: "white",
                 textTransform: "unset !important",
                 marginRight: "10px",
+                marginTop: {
+                  xs: "10px",
+                  sm: "10px",
+                  lg: "0px",
+                  md: "0px",
+                },
               }}
               onClick={handleOrder}
             >
@@ -193,7 +221,14 @@ const Nav = ({ handleOrder, orders, user }) => {
                 textTransform: "unset !important",
                 marginRight: "10px",
                 border: "1px solid ##3C4263",
+                marginTop: {
+                  xs: "10px",
+                  sm: "10px",
+                  lg: "0px",
+                  md: "0px",
+                },
               }}
+              onClick={() => navigate("/orders")}
             >
               <ReplyIcon
                 sx={{

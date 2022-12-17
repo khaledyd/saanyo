@@ -33,8 +33,7 @@ export default function BasicTable({ salesdata }) {
             <TableRow>
               <TableCell
                 sx={{
-
-                  width: "5%"
+                  width: "5%",
                 }}
               >
                 <Typography
@@ -43,7 +42,6 @@ export default function BasicTable({ salesdata }) {
                     fontFamily: "Poppins, sans-serif",
                     color: "#3C4263",
                     fontWeight: "bold",
-              
                   }}
                 >
                   {" "}
@@ -57,7 +55,7 @@ export default function BasicTable({ salesdata }) {
                   fontFamily: "Poppins, sans-serif",
                   color: "#3C4263",
                   fontWeight: "bold",
-                  width: "5%"
+                  width: "5%",
                 }}
               >
                 Quantity
@@ -69,7 +67,7 @@ export default function BasicTable({ salesdata }) {
                   fontFamily: "Poppins, sans-serif",
                   color: "#3C4263",
                   fontWeight: "bold",
-                  width: "11%"
+                  width: "11%",
                 }}
               >
                 Total
@@ -81,7 +79,7 @@ export default function BasicTable({ salesdata }) {
                   fontFamily: "Poppins, sans-serif",
                   color: "#3C4263",
                   fontWeight: "bold",
-                  width:"23%"
+                  width: "23%",
                 }}
               >
                 Name
@@ -93,7 +91,7 @@ export default function BasicTable({ salesdata }) {
                   fontFamily: "Poppins, sans-serif",
                   color: "#3C4263",
                   fontWeight: "bold",
-                  width:"23%"
+                  width: "23%",
                 }}
               >
                 Phone Number
@@ -105,74 +103,75 @@ export default function BasicTable({ salesdata }) {
                   fontFamily: "Poppins, sans-serif",
                   color: "#3C4263",
                   fontWeight: "bold",
-                  width:"23%"
+                  width: "23%",
                 }}
               >
                 Address
               </TableCell>
             </TableRow>
-            {salesdata &&  salesdata.map((s) => {
-              return (
-                <TableRow>
-                  <TableCell>
-                    <Typography
+            {salesdata &&
+              salesdata.map((s) => {
+                return (
+                  <TableRow>
+                    <TableCell>
+                      <Typography
+                        sx={{
+                          color: "#7743DB",
+                          fontWeight: "bold",
+                          fontSize: "20px",
+                        }}
+                      >
+                        ${s.amountPayed}
+                      </Typography>
+                    </TableCell>
+                    <TableCell
                       sx={{
                         color: "#7743DB",
                         fontWeight: "bold",
-                        fontSize: "20px",
+                        fontSize: "15px",
                       }}
                     >
-                      ${s.amountPayed}
-                    </Typography>
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      color: "#7743DB",
-                      fontWeight: "bold",
-                      fontSize: "15px",
-                    }}
-                  >
-                    {s.quantity}
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      color: "#7743DB",
-                      fontWeight: "bold",
-                      fontSize: "15px",
-                    }}
-                  >
-                    ${s.total}
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      color: "#7743DB",
-                      fontWeight: "bold",
-                      fontSize: "15px",
-                    }}
-                  >
-                    {s.buyernme}
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      color: "#7743DB",
-                      fontWeight: "bold",
-                      fontSize: "15px",
-                    }}
-                  >
-                    {s.buyerPhoneNumber}
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      color: "#7743DB",
-                      fontWeight: "bold",
-                      fontSize: "15px",
-                    }}
-                  >
-                    {s.buyerAddress}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+                      {s.quantity}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        color: "#7743DB",
+                        fontWeight: "bold",
+                        fontSize: "15px",
+                      }}
+                    >
+                      ${s.total}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        color: "#7743DB",
+                        fontWeight: "bold",
+                        fontSize: "15px",
+                      }}
+                    >
+                      {s.buyernme}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        color: "#7743DB",
+                        fontWeight: "bold",
+                        fontSize: "15px",
+                      }}
+                    >
+                      {s.buyerPhoneNumber}
+                    </TableCell>
+                    <TableCell
+                      sx={{
+                        color: "#7743DB",
+                        fontWeight: "bold",
+                        fontSize: "15px",
+                      }}
+                    >
+                      {s.buyerAddress}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
         <Table>

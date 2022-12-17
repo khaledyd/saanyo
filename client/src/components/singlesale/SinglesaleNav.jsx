@@ -17,38 +17,131 @@ const Nav = ({ order, orderbalance }) => {
       sx={{
         display: "flex",
         flexDirection: "column",
-        width: "90%",
-        marginLeft: "10%",
+        width: "95%",
+        marginLeft: "5%",
       }}
     >
-      <Box
-        sx={{
-          marginLeft: "80%",
-          display: "flex",
-          marginTop: "20px",
-        }}
-      >
-        <img
-          src={notifications}
-          alt="Notification"
-          style={{
-            marginRight: "10px",
-          }}
-        />
-        <Button
+      <Box>
+        <Box
           sx={{
-            width: "max-content",
-            padding: "5px 30px",
-            backgroundColor: "#7743DB",
-            borderRadius: "20px",
-            color: "white",
-            textTransform: "unset !important",
+            width: {
+              lg: "max-content",
+              sm: "300px",
+              xs: "300px",
+              md: "max-content",
+            },
+            padding: "30px 30px",
+            height: "150px",
+            backgroundColor: "#3C4263",
+            marginRight: "30px",
+            display: "flex",
+            justifyContent: "space-around",
+            alignItems: {
+              xs: "flex-start",
+              sm: "flex-start",
+              md: "center",
+              lg: "center",
+            },
+            borderRadius: "10px",
+            flexDirection: {
+              lg: "row",
+              sm: "column",
+              xs: "column",
+              md: "row",
+            },
           }}
         >
-          Khalid dahir
-        </Button>
-      </Box>
-      <Box>
+          <Box
+            display={"flex"}
+            sx={{
+              color: "#fff",
+              alignItems: "center",
+            }}
+          >
+            {" "}
+            <Box
+              sx={{
+                width: "max-content",
+                padding: "5px 10px",
+                backgroundColor: "#fff",
+                borderRadius: "3px",
+                color: "#7743DB",
+              }}
+            >
+              {" "}
+              <InventoryIcon />
+            </Box>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                fontSize: "20px",
+                marginLeft: "10px",
+                marginRight: "30px",
+              }}
+            >
+              {order._id}
+            </Typography>
+          </Box>
+          <Box
+            display={"flex"}
+            sx={{
+              alignItems: "center",
+            }}
+          >
+            <Box
+              sx={{
+                width: "max-content",
+                padding: "5px 10px",
+                backgroundColor: "#fff",
+                borderRadius: "3px",
+                color: "#7743DB",
+              }}
+            >
+              {" "}
+              <TitleIcon />
+            </Box>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                fontSize: "20px",
+                marginLeft: "10px",
+                color: "#fff",
+                marginRight: "30px",
+              }}
+            >
+              {order.productTitle}
+            </Typography>
+          </Box>
+          <Box
+            display={"flex"}
+            sx={{
+              alignItems: "center",
+            }}
+          >
+            <Box
+              sx={{
+                width: "max-content",
+                padding: "5px 10px",
+                backgroundColor: "#fff",
+                borderRadius: "3px",
+                color: "#7743DB",
+              }}
+            >
+              {" "}
+              <LocalOfferIcon />
+            </Box>
+            <Typography
+              sx={{
+                fontWeight: "bold",
+                fontSize: "20px",
+                marginLeft: "10px",
+                color: "#fff",
+              }}
+            >
+              ${order.price}
+            </Typography>
+          </Box>
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -66,107 +159,6 @@ const Nav = ({ order, orderbalance }) => {
           >
             Overview
           </Typography>
-          <Box
-            sx={{
-              width: "70%",
-              height: "150px",
-              backgroundColor: "#3C4263",
-              marginRight: "20px",
-              display: "flex",
-              justifyContent: "space-around",
-              alignItems: "center",
-              borderRadius: "10px",
-            }}
-          >
-            <Box
-              display={"flex"}
-              sx={{
-                color: "#fff",
-                alignItems: "center",
-              }}
-            >
-              {" "}
-              <Box
-                sx={{
-                  width: "max-content",
-                  padding: "5px 10px",
-                  backgroundColor: "#fff",
-                  borderRadius: "3px",
-                  color: "#7743DB",
-                }}
-              >
-                {" "}
-                <InventoryIcon />
-              </Box>
-              <Typography
-                sx={{
-                  fontWeight: "bold",
-                  fontSize: "20px",
-                  marginLeft: "10px",
-                }}
-              >
-                {order._id}
-              </Typography>
-            </Box>
-            <Box
-              display={"flex"}
-              sx={{
-                alignItems: "center",
-              }}
-            >
-              <Box
-                sx={{
-                  width: "max-content",
-                  padding: "5px 10px",
-                  backgroundColor: "#fff",
-                  borderRadius: "3px",
-                  color: "#7743DB",
-                }}
-              >
-                {" "}
-                <TitleIcon />
-              </Box>
-              <Typography
-                sx={{
-                  fontWeight: "bold",
-                  fontSize: "20px",
-                  marginLeft: "10px",
-                  color: "#fff",
-                }}
-              >
-                {order.productTitle}
-              </Typography>
-            </Box>
-            <Box
-              display={"flex"}
-              sx={{
-                alignItems: "center",
-              }}
-            >
-              <Box
-                sx={{
-                  width: "max-content",
-                  padding: "5px 10px",
-                  backgroundColor: "#fff",
-                  borderRadius: "3px",
-                  color: "#7743DB",
-                }}
-              >
-                {" "}
-                <LocalOfferIcon />
-              </Box>
-              <Typography
-                sx={{
-                  fontWeight: "bold",
-                  fontSize: "20px",
-                  marginLeft: "10px",
-                  color: "#fff",
-                }}
-              >
-                {order.price}
-              </Typography>
-            </Box>
-          </Box>
         </Box>
         <Box
           sx={{

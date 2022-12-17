@@ -407,7 +407,7 @@ const Dashboard = () => {
               </Table>
               <Box sx={{
                 width:'100%',
-                position: "fixed",
+          
               }}>
                 <Box>
                   <Box

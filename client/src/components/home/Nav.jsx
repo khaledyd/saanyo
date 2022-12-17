@@ -6,10 +6,11 @@ import { useNavigate } from "react-router-dom";
 import logo from ".././storedashboard/images/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Nav = () => {
-  const [menu, setMenu] = useState(true);
-  const [submenu, setsubmenu] = useState(true);
+  const [menu, setMenu] = useState(null);
+  const [submenu, setsubmenu] = useState(null);
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   return (
@@ -65,19 +66,35 @@ const Nav = () => {
           }}
           display={"flex"}
         >
-          <MenuIcon
-            onClick={() => setMenu(!menu)}
-            sx={{
-              fontSize: "40px",
-              display: {
-                lg: "none",
-                md: "none",
-                sm: "block",
-                xs: "block",
-              },
-              cursor: "pointer",
-            }}
-          />
+          {menu ? (
+            <CloseIcon
+              onClick={() => setMenu(!menu)}
+              sx={{
+                fontSize: "40px",
+                display: {
+                  lg: "none",
+                  md: "none",
+                  sm: "block",
+                  xs: "block",
+                },
+                cursor: "pointer",
+              }}
+            />
+          ) : (
+            <MenuIcon
+              onClick={() => setMenu(!menu)}
+              sx={{
+                fontSize: "40px",
+                display: {
+                  lg: "none",
+                  md: "none",
+                  sm: "block",
+                  xs: "block",
+                },
+                cursor: "pointer",
+              }}
+            />
+          )}
 
           <img
             src={logo}
@@ -91,6 +108,59 @@ const Nav = () => {
             onClick={() => navigate("/")}
           />
         </Box>
+        <Box
+          sx={{
+            width: "60%",
+            color: "#3F3D56",
+            fontFamily: "Poppins, sans-serif",
+            flexDirection: {
+              lg: " row",
+              md: "row",
+              sm: "column",
+              xs: "column",
+            },
+            display: {
+              xs: "none",
+              sm: "none",
+              lg: "flex",
+              md: "flex",
+            },
+          }}
+        >
+          <Typography
+            sx={{
+              padding: "10px 20px",
+              fontSize: "20px",
+            }}
+          >
+     products
+          </Typography>
+          <Typography
+            sx={{
+              padding: "10px 20px",
+              fontSize: "20px",
+            }}
+          >
+            About us
+          </Typography>
+          <Typography
+            sx={{
+              padding: "10px 20px",
+              fontSize: "20px",
+            }}
+          >
+            Help
+          </Typography>
+          <Typography
+            sx={{
+              padding: "10px 20px",
+              fontSize: "20px",
+            }}
+          >
+            Features
+          </Typography>
+        </Box>
+
         {menu ? (
           <Box
             display={"flex"}
@@ -104,14 +174,18 @@ const Nav = () => {
                 sm: "column",
                 xs: "column",
               },
-       
-              
+              display: {
+                xs: "flex",
+                sm: "flex",
+                lg: "none",
+                md: "none",
+              },
             }}
           >
             <Typography
               sx={{
                 padding: "10px 20px",
-                fontSize:"20px"
+                fontSize: "20px",
               }}
             >
               Producrs
@@ -119,7 +193,7 @@ const Nav = () => {
             <Typography
               sx={{
                 padding: "10px 20px",
-                fontSize:"20px"
+                fontSize: "20px",
               }}
             >
               About us
@@ -127,7 +201,7 @@ const Nav = () => {
             <Typography
               sx={{
                 padding: "10px 20px",
-                fontSize:"20px"
+                fontSize: "20px",
               }}
             >
               Help
@@ -135,7 +209,7 @@ const Nav = () => {
             <Typography
               sx={{
                 padding: "10px 20px",
-                fontSize:"20px"
+                fontSize: "20px",
               }}
             >
               Features
@@ -148,7 +222,7 @@ const Nav = () => {
 
       <Box
         sx={{
-          width: { md: "20%", sm: "35%" },
+          width: { md: "20%", sm: "20%", xs: "20%" },
           display: "flex",
           alignItems: "center",
           marginRight: "20px",
@@ -167,6 +241,10 @@ const Nav = () => {
               color: "#7743DB",
               width: "100x",
               marginRight: "20px",
+              "&:hover": {
+                backgroundColor: "#3C4263",
+                color: "#fff",
+              },
             }}
             onClick={() => navigate("/dashboard")}
           >
@@ -179,6 +257,10 @@ const Nav = () => {
               color: "#7743DB",
               width: "100px",
               marginRight: { lg: "20px", md: "20px", sm: "0px", xs: "0px" },
+              "&:hover": {
+                backgroundColor: "#3C4263",
+                color: "#fff",
+              },
             }}
             onClick={() => navigate("/login")}
           >
@@ -186,16 +268,7 @@ const Nav = () => {
           </Button>
         )}
         {currentUser ? (
-          <Button
-            sx={{
-              backgroundColor: "#7743DB",
-              color: "#fff",
-              width: "100px",
-              marginTop: { lg: "0px", md: "0px", sm: "10px", xs: "10px" },
-            }}
-          >
-            <NotificationsIcon />
-          </Button>
+          ""
         ) : (
           <Button
             sx={{
@@ -203,6 +276,10 @@ const Nav = () => {
               color: "#fff",
               width: "100px",
               marginTop: { lg: "0px", md: "0px", sm: "10px", xs: "10px" },
+              "&:hover": {
+                backgroundColor: "#3C4263",
+                color: "#fff",
+              },
             }}
             onClick={() => navigate("/signup")}
           >

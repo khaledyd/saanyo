@@ -7,15 +7,19 @@ import Singlesaledata from "../components/singlesale/Singlesaledata";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import Allnav from "./Allnav";
 import axios from "axios";
+import Sidebar from "../components/dashboard/Sidebar";
+import SingleData from "../components/singlesale/SingleData";
 
 const Dashboard = () => {
   const [order, setOrder] = useState({});
+  const [orderData, setOrderData] = useState();
   const location = useLocation();
-  console.log(location)
+  console.log(location);
   const path = location.pathname.split("/")[2];
-  const orderbalance = location.state.orderRevenue
-  console.log(orderbalance)
+  const orderbalance = location.state.orderRevenue;
+  console.log(orderbalance);
 
   const { currentUser } = useSelector((state) => state.user);
   useEffect(() => {
@@ -28,34 +32,73 @@ const Dashboard = () => {
     };
     fechorder();
   }, [path]);
+  console.log(order);
 
   const salesdata = order.sales;
-
-  console.log(salesdata);
 
   return (
     <Box
       sx={{
         display: "flex",
-        width: "100%",
+        width: {
+          xs: "100%",
+          md: "100%",
+          lg: "100%",
+          sm: "100%",
+        },
+        flexDirection: "column",
       }}
     >
-      <Storesidebar />
+      <Allnav />
+
       <Box
         sx={{
-          width: "100%",
+          width: {
+            xs: "100%",
+            sm: "100%",
+            md: "100%",
+            lg: "100%",
+          },
         }}
       >
-        <SinglesaleNav order={order} salesdata={salesdata} orderbalance={orderbalance} />
+        <SinglesaleNav
+          order={order}
+          salesdata={salesdata}
+          orderbalance={orderbalance}
+        />
         <Box
           sx={{
             width: "100%",
             height: "100vh",
             backgroundColor: "#F5F5F5",
             paddingTop: "1%",
+            display: {
+              xs: "none",
+              sm: "none",
+              lg: "block",
+              md: "block",
+            },
           }}
         >
           <Singlesaledata salesdata={salesdata} />
+        </Box>
+        <Box
+          sx={{
+            width: {
+              xs: "100%",
+              sm: "100%",
+              lg: "100%",
+              md: "100%",
+            },
+            display:{
+              xs:"block",
+              sm:"block",
+              md:"none",
+              lg:"none",
+            }
+          }}
+        >
+          <SingleData salesdata={salesdata} />
         </Box>
       </Box>
     </Box>

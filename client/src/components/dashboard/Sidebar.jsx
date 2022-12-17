@@ -26,7 +26,9 @@ const Sidebar = () => {
           sx={{
             display: "flex",
             alignItems: "center",
+            cursor: "pointer",
           }}
+          onClick={() => navigate("/")}
         >
           <img
             src="./images/home.png"
@@ -43,6 +45,7 @@ const Sidebar = () => {
               fontSize: "18px",
 
               fontFamily: "Poppins, sans-serif",
+              cursor: "pointer",
             }}
           >
             Home
@@ -53,33 +56,7 @@ const Sidebar = () => {
             display: "flex",
             alignItems: "center",
             marginTop: "20px",
-          }}
-        >
-          <img
-            src="./images/transec.png"
-            alt="home"
-            style={{
-              width: "40px",
-              height: "40px",
-            }}
-          />
-          <Typography
-            sx={{
-              marginLeft: "10px",
-              color: "#3C4263",
-              fontSize: "18px",
-
-              fontFamily: "Poppins, sans-serif",
-            }}
-          >
-            Transections
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            marginTop: "20px",
+            cursor: "pointer",
           }}
           onClick={() => navigate("/settings")}
         >

@@ -252,7 +252,7 @@ const Dashboard = () => {
               height: "100vh",
               backgroundColor: "#F5F5F5",
               marginTop: "50px",
-              position: "fixed",
+ 
             }}
           >
             <Box

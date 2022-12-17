@@ -4,8 +4,9 @@ import React from "react";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-
+import { useNavigate } from "react-router-dom";
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -41,7 +42,7 @@ const Footer = () => {
           }}
         >
           {" "}
-          Simple steps may lead you To your greatest experience
+          Simple steps may lead you to your greatest experience
         </Typography>
         <Box
           sx={{
@@ -56,7 +57,13 @@ const Footer = () => {
               fontSize: "17px",
               marginRight: "30px",
               textTransform: "unset !important",
+              "&:hover": {
+              backgroundColor: "#7743db", 
+              color:  "#Fff"
+            },
+            
             }}
+            onClick={() => navigate("/login")}
           >
             Log in
           </Button>
@@ -69,7 +76,13 @@ const Footer = () => {
               color: "#FFF",
               textTransform: "unset !important",
               marginRight: "30px",
+              "&:hover": {
+              backgroundColor:   "#Fff" ,
+              color:   "#7743db",
+            },
+           
             }}
+            onClick={() => navigate("/signup")}
           >
             Sign Up
           </Button>
@@ -124,7 +137,7 @@ const Footer = () => {
               color: "#fff",
             }}
           >
-            The fastest payment gateway For mobile money systems
+   The fastest payment gateway for mobile money systems
           </Typography>
           <Box
             sx={{
@@ -194,9 +207,9 @@ const Footer = () => {
           >
             <Typography>Contact us</Typography>
             <Typography>Help</Typography>
-            <Typography>Sanyo wallet</Typography>
+            <Typography>Saanyo wallet</Typography>
             <Typography>Apps</Typography>
-            <Typography>Third party apps</Typography>
+            <Typography>Third-party apps</Typography>
           </Box>
         </Box>
       </Box>
