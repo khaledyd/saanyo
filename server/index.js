@@ -28,6 +28,11 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
+app.use(express.static("client/build"));
+
+app.get("*", (req, res) =>
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
+);
 
 //error handler
 app.use((err, req, res, next) => {
