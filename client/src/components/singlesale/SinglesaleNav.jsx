@@ -1,16 +1,14 @@
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import PaymentIcon from "@mui/icons-material/Payment";
-import ReplyIcon from "@mui/icons-material/Reply";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import TitleIcon from "@mui/icons-material/Title";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import notifications from "../storedashboard/images/notifications.png";
+
 import { useLocation } from "react-router-dom";
 
 const Nav = ({ order, orderbalance }) => {
-  const locations = useLocation();
+
 
   return (
     <Box

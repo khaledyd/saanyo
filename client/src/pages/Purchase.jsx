@@ -1,5 +1,5 @@
 import React from "react";
-import { borderColor, Box } from "@mui/system";
+import {  Box } from "@mui/system";
 import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
@@ -11,7 +11,7 @@ import DoneIcon from "@mui/icons-material/Done";
 
 const Signup = () => {
   const { currentUser } = useSelector((state) => state.user);
-  const navigate = useNavigate();
+
 
   const buyerId = currentUser._id;
   const locations = useLocation();

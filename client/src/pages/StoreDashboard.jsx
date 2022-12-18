@@ -9,8 +9,6 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import Storesidebar from "../components/storedashboard/Storesidebar";
-import OrderLists from "../components/storedashboard/OrderLists";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../Redux/userSlice";
 

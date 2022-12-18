@@ -1,15 +1,13 @@
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import Recive from "../storedashboard/images/srecive.png";
+
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import sendMo from "../storedashboard/images/sendMo.png";
+
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 
 const MinitransectionsRecived = ({ salesdata }) => {
-  const navigate = useNavigate();
   const [more, setMore] = useState(false);
 
   const handlechange = () => {
@@ -50,7 +48,6 @@ const MinitransectionsRecived = ({ salesdata }) => {
             <Box
               sx={{
                 width: "100%",
-
               }}
             >
               <Box

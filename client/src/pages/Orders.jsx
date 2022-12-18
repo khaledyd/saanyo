@@ -1,19 +1,7 @@
-import {
-  Box,
-  Button,
-  Table,
-  TableCell,
-  TableHead,
-  TableRow,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Box, Table, TableCell, TableHead, TableRow } from "@mui/material";
 import React from "react";
-import Storesidebar from "../components/storedashboard/Storesidebar";
-import OrderLists from "../components/orders/OrderLists";
 
-import Storenav from "../components/storedashboard/Sorenav";
-import Lastsales from "../components/storedashboard/Lastsales";
+import OrderLists from "../components/orders/OrderLists";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -24,7 +12,7 @@ import OrdersData from "../components/orders/OrdersData";
 const Dashboard = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [orders, setOrders] = useState([]);
-  const [sidebar, setSidebar] = useState(true);
+
 
   useEffect(() => {
     const fechorder = async () => {
@@ -34,9 +22,7 @@ const Dashboard = () => {
     };
     fechorder();
   }, [currentUser._id]);
-  const handlesidebar = () => {
-    setSidebar(!sidebar);
-  };
+
 
   return (
     <Box
@@ -44,7 +30,6 @@ const Dashboard = () => {
         display: "flex",
         width: "100%",
         flexDirection: "column",
-      
       }}
     >
       <Allnav />
@@ -102,8 +87,6 @@ const Dashboard = () => {
             </TableHead>
           </Table>
           <Box>
-    
-     
             <Box
               sx={{
                 display: {

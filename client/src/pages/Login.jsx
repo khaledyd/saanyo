@@ -1,5 +1,5 @@
 import React from "react";
-import { borderColor, Box } from "@mui/system";
+import { Box } from "@mui/system";
 import { Button, TextField, Typography } from "@mui/material";
 import Nav from "../components/home/Nav";
 import axios from "axios";
@@ -130,17 +130,20 @@ const Login = () => {
                     wrong credentials
                   </Typography>
                 )}
-                <Typography
-                  sx={{
-                    color: "##3F3D56",
-                  }}
-                >
-                  Sing up
-                </Typography>
+
                 <Typography
                   sx={{
                     color: "#3F3D56",
+                    cursor: "pointer",
+                    "&:hover": {
+                      backgroundColor: "#3C4263",
+                      color: "#fff",
+                      width: "max-content",
+                      padding: "1px 20px",
+                      marginTop: "10px",
+                    },
                   }}
+                  onClick={() => navigate("/forgetpassword")}
                 >
                   Forget password
                 </Typography>

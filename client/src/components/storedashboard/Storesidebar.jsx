@@ -1,7 +1,6 @@
 import { Button, Typography } from "@mui/material";
-import { Box, padding } from "@mui/system";
+import { Box } from "@mui/system";
 import React from "react";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import logouts from "./images/logout.png";
 import home from "./images/home.png";

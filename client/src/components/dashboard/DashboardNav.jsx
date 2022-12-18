@@ -2,13 +2,12 @@ import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import PaymentIcon from "@mui/icons-material/Payment";
-import ReplyIcon from "@mui/icons-material/Reply";
+
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import StoreIcon from "@mui/icons-material/Store";
 
 const Nav = ({ userdata, sidebar }) => {
-  const { currentUser } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
   return (

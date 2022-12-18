@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Hero = () => {
-  const { currentUser } = useSelector((state) => state.user);
+
   const navigate = useNavigate();
   return (
     <Box

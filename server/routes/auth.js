@@ -1,12 +1,5 @@
 import express from "express";
-import {
-  googleAuth,
-  signin,
-  signup,
-  lots,
-  verify,
-  SendOtb,
-} from "../controllers/auth.js";
+import { signin, signup, verify, SendOtb } from "../controllers/auth.js";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 
@@ -18,12 +11,11 @@ router.post("/signup", signup);
 //SIGN IN
 router.post("/signin", signin);
 
-//GOOGLE AUTH
-router.post("/google", googleAuth);
 
-//LOT CREATION
-router.post("/lots", lots);
+//veryfy OTP
 router.post("/verify", verify);
+
+//SEND OTP
 router.post("/SendOtb", SendOtb);
 
 export default router;

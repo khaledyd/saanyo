@@ -1,7 +1,6 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import Recive from "../storedashboard/images/srecive.png";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import sendMo from "../storedashboard/images/sendMo.png";
 import { useState } from "react";

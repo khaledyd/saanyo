@@ -4,7 +4,7 @@ import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
 import Nav from "../components/home/Nav";
-import { useNavigate, useLocation } from "react-router-dom";
+import {  useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import DoneIcon from "@mui/icons-material/Done";
@@ -15,7 +15,7 @@ const Signup = () => {
   const senderId = currentUser._id;
   const locations = useLocation();
 
-  const path = locations.pathname.split("/")[2];
+
 
   const [seuccess, setSuccess] = useState(false);
   const [error, setError] = useState(false);

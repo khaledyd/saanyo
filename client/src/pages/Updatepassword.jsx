@@ -1,21 +1,20 @@
 import React from "react";
-import { borderColor, Box } from "@mui/system";
+import {Box } from "@mui/system";
 import { Button, TextField, Typography } from "@mui/material";
 import Nav from "../components/home/Nav";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginFailure, loginStart, loginSuccess } from "../Redux/userSlice";
-import { useLocation } from "react-router-dom";
 
 const Login = () => {
   const { currentUser } = useSelector((state) => state.user);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
   const [confirmPassword, setConfrimpasword] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   const chanepassword = async (e) => {
     e.preventDefault();
@@ -25,11 +24,13 @@ const Login = () => {
           userId: currentUser._id,
           password: password,
         });
+        navigate("/");
         console.log(res);
       } catch (err) {
         console.error(err);
       }
     } else {
+      setError(true);
       console.log("passwrod and confiirm password must be same");
     }
   };
@@ -96,6 +97,16 @@ const Login = () => {
               }}
               onChange={(e) => setConfrimpasword(e.target.value)}
             />
+            {error && (
+              <Typography
+                sx={{
+                  width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
+                  color: "red",
+                }}
+              >
+                passwrod and confiirm password must be same
+              </Typography>
+            )}
             <Box
               sx={{
                 width: "50%",

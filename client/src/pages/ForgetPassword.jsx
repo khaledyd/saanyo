@@ -11,10 +11,12 @@ import { useDispatch } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
+
   const dispatch = useDispatch();
+  const [error, setError] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmpassword, setconfirmpassowrd] = useState("");
+ 
   const [code, setCode] = useState();
   const [change, setChange] = useState(false);
   const [newone, setOneone] = useState(false);
@@ -28,6 +30,7 @@ const Login = () => {
     } catch (err) {
       console.log(err);
       dispatch(loginFailure(err));
+ 
     }
   };
 
@@ -42,20 +45,13 @@ const Login = () => {
       setUser(res.data);
       dispatch(loginSuccess(res.data));
       setOneone(true);
-      navigate('/Updatepassword')
+      navigate("/Updatepassword");
 
       console.log(res.data);
     } catch (err) {
       console.log(err);
+      setError(true);
     }
-  };
-
-  const redirectToAbout = () => {
-    navigate(`/Updatepassword/${useriD}`, {
-      state: {
-        userdata: user,
-      },
-    });
   };
 
   const useriD = user._id;
@@ -110,168 +106,77 @@ const Login = () => {
             >
               Forget Password
             </Typography>
-            {newone ? (
-              <Box
-                display={"flex"}
-                flexDirection={"column"}
-                alignItems={"center"}
-                justifyContent={"center"}
+
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"center"}
+              justifyContent={"center"}
+              sx={{
+                width: "100%",
+              }}
+            >
+              <TextField
+                id="outlined-basic"
+                label="Email"
+                value={email}
+                type={"email"}
+                disabled
+                variant="outlined"
                 sx={{
-                  width: "100%",
+                  width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
+                  marginTop: "10px",
+                  borderRadius: "30px",
+                  textTransform: "unset !important",
+                  display: "none",
                 }}
-              >
-                <TextField
-                  id="outlined-basic"
-                  label="Password"
-                  type={"password"}
-                  variant="outlined"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                id="outlined-basic"
+                label="Code"
+                type={"number"}
+                variant="outlined"
+                sx={{
+                  width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
+                  marginTop: "10px",
+                  borderRadius: "30px",
+                  textTransform: "unset !important",
+                }}
+                onChange={(e) => setCode(e.target.value)}
+              />
+              {error && (
+                <Typography
                   sx={{
                     width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
-                    marginTop: "10px",
-                    borderRadius: "30px",
-                    textTransform: "unset !important",
-                  }}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
-                <TextField
-                  id="outlined-basic"
-                  label="confrim password"
-                  type={"password"}
-                  variant="outlined"
-                  sx={{
-                    width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
-                    marginTop: "10px",
-                    borderRadius: "30px",
-                    textTransform: "unset !important",
-                  }}
-                  onChange={(e) => setconfirmpassowrd(e.target.value)}
-                />
-                <Box
-                  sx={{
-                    width: "50%",
+                    color: "red",
                   }}
                 >
-                  <Button
-                    onClick={chanepassword}
-                    sx={{
-                      width: "60%",
-                      marginTop: "10px",
+                  Wrong code
+                </Typography>
+              )}
 
-                      marginLeft: "-70px",
-                      backgroundColor: "#7743DB",
-                      color: "#fff",
-                    }}
-                  >
-                    {" "}
-                    Reset Password
-                  </Button>
-
-                  <Box
-                    justifyContent={"flex-start"}
-                    sx={{
-                      marginLeft: "-70px",
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        color: "##3F3D56",
-                      }}
-                    >
-                      Sing up
-                    </Typography>
-                    <Typography
-                      sx={{
-                        color: "#3F3D56",
-                      }}
-                    >
-                      Log in
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-            ) : (
               <Box
-                display={"flex"}
-                flexDirection={"column"}
-                alignItems={"center"}
-                justifyContent={"center"}
                 sx={{
-                  width: "100%",
+                  width: "50%",
                 }}
               >
-                <TextField
-                  id="outlined-basic"
-                  label="Email"
-                  value={email}
-                  type={"email"}
-                  disabled
-                  variant="outlined"
+                <Button
+                  onClick={handleupdate}
                   sx={{
-                    width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
+                    width: "60%",
                     marginTop: "10px",
-                    borderRadius: "30px",
-                    textTransform: "unset !important",
-                    display: "none",
-                  }}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <TextField
-                  id="outlined-basic"
-                  label="Code"
-                  type={"number"}
-                  variant="outlined"
-                  sx={{
-                    width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
-                    marginTop: "10px",
-                    borderRadius: "30px",
-                    textTransform: "unset !important",
-                  }}
-                  onChange={(e) => setCode(e.target.value)}
-                />
-                <Box
-                  sx={{
-                    width: "50%",
+
+                    marginLeft: "-70px",
+                    backgroundColor: "#7743DB",
+                    color: "#fff",
                   }}
                 >
-                  <Button
-                    onClick={handleupdate}
-                    sx={{
-                      width: "60%",
-                      marginTop: "10px",
-
-                      marginLeft: "-70px",
-                      backgroundColor: "#7743DB",
-                      color: "#fff",
-                    }}
-                  >
-                    {" "}
-                    Reset Password
-                  </Button>
-
-                  <Box
-                    justifyContent={"flex-start"}
-                    sx={{
-                      marginLeft: "-70px",
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        color: "##3F3D56",
-                      }}
-                    >
-                      Sing up
-                    </Typography>
-                    <Typography
-                      sx={{
-                        color: "#3F3D56",
-                      }}
-                    >
-                      Log in
-                    </Typography>
-                  </Box>
-                </Box>
+                  {" "}
+                  Enter The code
+                </Button>
               </Box>
-            )}
+            </Box>
           </Box>
         ) : (
           <Box
@@ -336,28 +241,6 @@ const Login = () => {
                 >
                   Reset Password
                 </Button>
-
-                <Box
-                  justifyContent={"flex-start"}
-                  sx={{
-                    marginLeft: "-70px",
-                  }}
-                >
-                  <Typography
-                    sx={{
-                      color: "##3F3D56",
-                    }}
-                  >
-                    Sing up
-                  </Typography>
-                  <Typography
-                    sx={{
-                      color: "#3F3D56",
-                    }}
-                  >
-                    Log in
-                  </Typography>
-                </Box>
               </Box>
             </Box>
           </Box>

@@ -1,16 +1,14 @@
 import React from "react";
-import { Box, Button, CardMedia, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useSelector } from "react-redux";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+
 import { useNavigate } from "react-router-dom";
 import logo from "../components/storedashboard/images/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useState } from "react";
+
 import CloseIcon from "@mui/icons-material/Close";
 
 const Nav = ({ handlesidebar, sidebar }) => {
-  const [menu, setMenu] = useState(true);
-  const [submenu, setsubmenu] = useState(true);
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   return (

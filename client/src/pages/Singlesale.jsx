@@ -9,19 +9,19 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Allnav from "./Allnav";
 import axios from "axios";
-import Sidebar from "../components/dashboard/Sidebar";
+
 import SingleData from "../components/singlesale/SingleData";
 
 const Dashboard = () => {
   const [order, setOrder] = useState({});
-  const [orderData, setOrderData] = useState();
+
   const location = useLocation();
   console.log(location);
   const path = location.pathname.split("/")[2];
   const orderbalance = location.state.orderRevenue;
   console.log(orderbalance);
 
-  const { currentUser } = useSelector((state) => state.user);
+
   useEffect(() => {
     const fechorder = async () => {
       const res = await axios.get(`/users/getorderbyid/${path}`);

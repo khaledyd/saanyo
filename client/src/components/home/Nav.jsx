@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, CardMedia, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+
 import { useNavigate } from "react-router-dom";
 import logo from ".././storedashboard/images/logo.png";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -10,7 +10,6 @@ import CloseIcon from "@mui/icons-material/Close";
 
 const Nav = () => {
   const [menu, setMenu] = useState(null);
-  const [submenu, setsubmenu] = useState(null);
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   return (

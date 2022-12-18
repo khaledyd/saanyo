@@ -3,13 +3,11 @@ import { Box } from "@mui/system";
 import React from "react";
 import PaymentIcon from "@mui/icons-material/Payment";
 import ReplyIcon from "@mui/icons-material/Reply";
-import { useState } from "react";
+
 import { useSelector } from "react-redux";
-import notifications from "./images/notifications.png";
 import { useNavigate } from "react-router-dom";
 
 const Nav = ({ handleOrder, orders, user }) => {
-  const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const allorders = orders;
   let totalsales = [];
@@ -98,7 +96,7 @@ const Nav = ({ handleOrder, orders, user }) => {
                     fontFamily: "Poppins, sans-serif",
                   }}
                 >
-                  Store Balnce
+                  Store Balance
                 </Typography>
                 <Typography
                   sx={{

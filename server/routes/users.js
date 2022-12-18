@@ -3,18 +3,12 @@ import {
   update,
   deleteUser,
   getUser,
-  subscribe,
-  unsubscribe,
-  like,
-  dislike,
   crateOrder,
   buysomethingnow,
   sendMoney,
   getOrder,
   getorderbyid,
-  purchase,
   latesttrasections,
-  updateuser,
 } from "../controllers/user.js";
 import { verifyToken } from "../verifyToken.js";
 
@@ -29,25 +23,26 @@ router.delete("/:id", verifyToken, deleteUser);
 //get a user
 router.get("/find/:id", getUser);
 
-//subscribe a user
-router.put("/sub/:id", verifyToken, subscribe);
 
-//unsubscribe a user
-router.put("/unsub/:id", verifyToken, unsubscribe);
 
-//like a video
-router.put("/like/:videoId", verifyToken, like);
 
-//dislike a video
-router.put("/dislike/:videoId", verifyToken, dislike);
+//create Order 
 router.post("/createorder/:id", verifyToken, crateOrder);
 
+//make purchase
 router.put("/buysomethingnow/:id", verifyToken, buysomethingnow);
+
+//send money
 router.put("/sendMoney/:id", sendMoney);
+
+//get order of that user
 router.get("/getorder/:id", getOrder);
+
+//get order by id 
 router.get("/getorderbyid/:id", getorderbyid);
-router.put("/purchase/:id", verifyToken, purchase);
+
+//latest transections
+
 router.get("/latesttrasections/:id", verifyToken, latesttrasections);
-router.put("/updateuser/:id", updateuser);
 
 export default router;

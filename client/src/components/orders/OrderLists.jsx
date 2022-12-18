@@ -3,18 +3,16 @@ import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
+
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+
 import { Box } from "@mui/system";
 import { Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 export default function BasicTable({ orders }) {
   const navigate = useNavigate();
-  const copylink = () => {
-    const url = "http://localhost:3000/orders" + orders._id;
-  };
+
 
   const allsales = orders.sales;
 
