@@ -11,12 +11,14 @@ import DoneIcon from "@mui/icons-material/Done";
 
 const Signup = () => {
   const { currentUser } = useSelector((state) => state.user);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const buyerId = currentUser._id;
   const locations = useLocation();
 
   const path = locations.pathname.split("/")[2];
+  const [balance, setbalance] = useState("");
+  const [error, setError] = useState(false);
 
   const [order, setOrder] = useState([]);
   const [sales, setSales] = useState([
@@ -31,18 +33,23 @@ const Signup = () => {
   const [buyerPhoneNumber, setbuyerPhoneNumber] = useState();
   const [buyerAddress, setbuyerAddress] = useState("");
   const [total, setTotal] = useState(0);
+  const [orderdata, setOrderdata] = useState({});
+  const totals = orderdata * quantity;
+  console.log(totals);
 
   const sellerid = order.userId;
   useEffect(() => {
     const fechorder = async () => {
       const res = await axios.get(`/users/getorderbyid/${path}`);
+      setOrderdata(res.data.price);
       const sellerdata = await axios.get(`/users/find/${res.data.userId}`);
-      console.log(currentUser);
+      const buyerdata = await axios.get(`/users/find/${currentUser._id}`);
+      setbalance(buyerdata.data.wallet.balance);
 
       setOrder(res.data);
     };
     fechorder();
-  }, [path]);
+  }, [path, currentUser._id]);
   const handleChange = (e) => {
     setSales((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
@@ -60,21 +67,25 @@ const Signup = () => {
       },
     ];
 
-    try {
-      const res = await axios.put(
-        "/users/buysomethingnow/" + path,
+    if (totals > balance) {
+      setError(true);
+    } else {
+      try {
+        const res = await axios.put(
+          "/users/buysomethingnow/" + path,
 
-        {
-          sellerid,
-          buyerId,
-          sales,
-        }
-      );
-      setSuccess(true);
-      setSales(res.data);
-      console.log(res.data);
-    } catch (err) {
-      console.log(err);
+          {
+            sellerid,
+            buyerId,
+            sales,
+          }
+        );
+        setSuccess(true);
+        setSales(res.data);
+        console.log(res.data);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -136,8 +147,13 @@ const Signup = () => {
             alignItems={"center"}
             flexDirection={"column"}
             sx={{
-              width: "50%",
-              marginLeft: { lg: "20%", md: "20", sm: "15%", xs: "15%" },
+              width: {
+                xs: "90%",
+                sm: "90%",
+                md: "50%",
+                lg: "50%",
+              },
+              marginLeft: { lg: "20%", md: "20%", sm: "5%", xs: "5%" },
               backgroundColor: "#FCFCFC",
               padding: "30px 60px",
               boxShadow: "0 3px 10px rgb(0 0 0 / 0.2)",
@@ -162,7 +178,12 @@ const Signup = () => {
             >
               <Box
                 sx={{
-                  width: "70%",
+                  width: {
+                    xs: "100%",
+                    sm: "100%",
+                    md: "70%",
+                    lg: "70%",
+                  },
                   marginTop: "11px",
                   marginButtom: "20px",
                 }}
@@ -245,10 +266,24 @@ const Signup = () => {
                 name="buyernme"
                 onChange={(e) => setbuyerAddress(e.target.value)}
               />
+              {error && (
+                <Typography
+                  sx={{
+                    width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
+                    color:"red"
+                  }}
+                >
+                  {" "}
+                  insufficient funds
+                </Typography>
+              )}
 
               <Box
                 sx={{
                   width: "50%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
                 }}
               >
                 <Button
@@ -262,21 +297,13 @@ const Signup = () => {
                 >
                   Complete Order
                 </Button>
+
                 <Box
                   justifyContent={"flex-start"}
                   sx={{
                     marginLeft: "-70px",
                   }}
-                >
-                  <Typography
-                    sx={{
-                      color: "#7743DB",
-                    }}
-                    onClick={()=> navigate("/dashboard")}
-                  >
-                    Cencel
-                  </Typography>
-                </Box>
+                ></Box>
               </Box>
             </Box>
           </Box>

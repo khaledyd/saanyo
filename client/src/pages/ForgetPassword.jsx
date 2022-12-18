@@ -5,8 +5,9 @@ import Nav from "../components/home/Nav";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+
 import { loginFailure, loginStart, loginSuccess } from "../Redux/userSlice";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -38,9 +39,10 @@ const Login = () => {
 
         code,
       });
-
       setUser(res.data);
+      dispatch(loginSuccess(res.data));
       setOneone(true);
+      navigate('/Updatepassword')
 
       console.log(res.data);
     } catch (err) {
@@ -324,7 +326,7 @@ const Login = () => {
                 <Button
                   onClick={handlesubmit}
                   sx={{
-                    width: "60%",
+                    width: "max- content",
                     marginTop: "10px",
 
                     marginLeft: "-70px",

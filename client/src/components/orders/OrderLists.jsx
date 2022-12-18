@@ -34,10 +34,9 @@ export default function BasicTable({ orders }) {
 
   const redirectToAbout = () => {
     navigate(`/Singlesale/${orders._id}`, {
-        state: {
-            orderRevenue: finalarray
-         
-        },
+      state: {
+        orderRevenue: finalarray,
+      },
     });
   };
   console.log(finalarray);
@@ -137,9 +136,16 @@ export default function BasicTable({ orders }) {
               <TableCell>
                 <Typography
                   sx={{
+                    transition: "width 500ms, height 500ms",
                     marginLeft: "40px",
                     color: "#7743DB",
                     fontSize: "16px",
+                    "&:hover": {
+                      backgroundColor: "#3C4263",
+                      color: "#fff",
+                      padding:"10px 5px"
+                    },
+                    cursor: "pointer",
                   }}
                   onClick={redirectToAbout}
                 >
@@ -184,6 +190,10 @@ export default function BasicTable({ orders }) {
                   sx={{
                     backgroundColor: "#7743db",
                     color: "#ffF",
+                    "&:hover": {
+                      backgroundColor: "#3C4263",
+                      color: "#fff",
+                    },
                   }}
                   onClick={() => navigate(`/Purchase/${orders._id}`)}
                 >

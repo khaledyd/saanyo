@@ -13,10 +13,11 @@ const Login = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
 
   const handlesubmit = async (e) => {
     e.preventDefault();
-    dispatch(loginStart())
+    dispatch(loginStart());
     const data = {
       email,
       password,
@@ -25,11 +26,11 @@ const Login = () => {
       const res = await axios.post("/auth/signin/", data);
 
       navigate("/");
-      dispatch(loginSuccess(res.data))
-
+      dispatch(loginSuccess(res.data));
     } catch (err) {
       console.log(err);
-      dispatch(loginFailure(err))
+      dispatch(loginFailure(err));
+      setError(true);
     }
   };
   return (
@@ -107,7 +108,7 @@ const Login = () => {
 
                   marginLeft: "-70px",
                   backgroundColor: "#7743DB",
-                  color:"#fff"
+                  color: "#fff",
                 }}
               >
                 Log in
@@ -119,6 +120,16 @@ const Login = () => {
                   marginLeft: "-70px",
                 }}
               >
+                {error && (
+                  <Typography
+                    sx={{
+                      color: "red",
+                      marginTop: "5px",
+                    }}
+                  >
+                    wrong credentials
+                  </Typography>
+                )}
                 <Typography
                   sx={{
                     color: "##3F3D56",

@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const MinitransectionsRecived = ({ orders }) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [more, setMore] = useState(false);
 
   const handlechange = () => {
@@ -30,6 +30,13 @@ const MinitransectionsRecived = ({ orders }) => {
     (accumulator, currentValue) => accumulator + currentValue,
     initialValue
   );
+  const redirectToAbout = () => {
+    navigate(`/Singlesale/${orders._id}`, {
+      state: {
+        orderRevenue: orderrevenue,
+      },
+    });
+  };
   return (
     <Box
       sx={{
@@ -40,7 +47,6 @@ const MinitransectionsRecived = ({ orders }) => {
           sm: "100%",
         },
         height: "max-content",
-
       }}
     >
       <Box>
@@ -71,7 +77,9 @@ const MinitransectionsRecived = ({ orders }) => {
               sx={{
                 alignItems: "center",
                 justifyContent: "center",
+                cursor: "pointer",
               }}
+              onClick={redirectToAbout}
             >
               <img
                 src={sendMo}
@@ -87,6 +95,7 @@ const MinitransectionsRecived = ({ orders }) => {
                   marginLeft: "10px",
                   fontSize: "15px",
                 }}
+            
               >
                 Order Id :{orders._id}
               </Typography>
@@ -156,20 +165,21 @@ const MinitransectionsRecived = ({ orders }) => {
               <Typography>number of sales :{orders.sales.length} </Typography>
               <Typography>Order Revenue : ${orderrevenue} </Typography>
 
-              <Typography>DATE :           {new Date(orders.createdAt).toDateString()}</Typography>
+              <Typography>
+                DATE : {new Date(orders.createdAt).toDateString()}
+              </Typography>
               <Typography>Name : </Typography>
-              <Button sx={{
-                  width:"max-content",
-                  padding:"10px 30px",
-                  backgroundColor:"#7743db",
-                  color:"#fff"
-              }}
-         
+              <Button
+                sx={{
+                  width: "max-content",
+                  padding: "10px 30px",
+                  backgroundColor: "#7743db",
+                  color: "#fff",
+                }}
                 onClick={() => navigate(`/Purchase/${orders._id}`)}
-
-              
-              >Order Link</Button>
-      
+              >
+                Order Link
+              </Button>
             </Box>
           </Box>
         ) : (

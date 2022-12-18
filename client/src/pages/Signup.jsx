@@ -11,6 +11,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(false);
   const navigate = useNavigate();
 
   const handlesubmit = async (e) => {
@@ -27,6 +28,7 @@ const Signup = () => {
       navigate("/login");
     } catch (err) {
       console.log(err);
+      setError(true)
     }
   };
 
@@ -118,6 +120,16 @@ const Signup = () => {
                 width: "50%",
               }}
             >
+              {error && (
+                <Typography
+                  sx={{
+                    marginTop: "5px",
+                    color: "red",
+                  }}
+                >
+                  password and confirm password must be same
+                </Typography>
+              )}
               <Button
                 variant="contained"
                 sx={{
@@ -127,7 +139,7 @@ const Signup = () => {
                 }}
                 onClick={handlesubmit}
               >
-                Log in
+                sign up
               </Button>
               <Box
                 justifyContent={"flex-start"}

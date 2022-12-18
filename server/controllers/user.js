@@ -5,7 +5,8 @@ import Video from "../models/Video.js";
 import bcrypt from "bcryptjs";
 
 export const update = async (req, res, next) => {
-  if (req.params.id === req.user.id) {
+  const userId = req.body.userId;
+  if (req.params.id == userId) {
     if (req.body.password) {
       const salt = await bcrypt.genSalt(10);
       req.body.password = await bcrypt.hash(req.body.password, salt);
@@ -291,92 +292,95 @@ export const buysomethingnow = async (req, res) => {
 };*/
 export const sendMoney = async (req, res, next) => {
   const checkh = await User.findOne({ _id: req.params.id });
-
-  if (!checkh) {
-    res.status(404).json("user not found");
-  } else {
-    const reciverId = await User.findOne({ _id: req.body.id });
-    if (!reciverId) {
-      res.status(404).json("reciver not found");
+  try {
+    if (!checkh) {
+      res.status(404).json("user not found");
     } else {
-      console.log("found this user");
-      let { ...others } = reciverId._doc;
-      try {
-        const balance = checkh.wallet.balance;
-        const reciverBlanace = reciverId.wallet.balance;
-        console.log(balance);
-        const amountsent = req.body.wallet.sends;
-        const amount = amountsent[0].amountsent;
-        const sentamount = amount;
-        console.log(sentamount);
+      const reciverId = await User.findOne({ _id: req.body.id });
+      if (!reciverId) {
+        res.status(404).json("reciver not found");
+      } else {
+        console.log("found this user");
+        let { ...others } = reciverId._doc;
+        try {
+          const balance = checkh.wallet.balance;
+          const reciverBlanace = reciverId.wallet.balance;
+          console.log(balance);
+          const amountsent = req.body.wallet.sends;
+          const amount = amountsent[0].amountsent;
+          const sentamount = amount;
+          console.log(sentamount);
 
-        if (balance < sentamount) {
-          res.status(403).json("insufficient funds");
-        } else {
-          const newSenderblance = balance - sentamount;
-          const newReciverBlance = reciverBlanace + sentamount;
-          console.log(newSenderblance);
+          if (balance < sentamount) {
+            res.status(403).json("insufficient funds");
+          } else {
+            const newSenderblance = balance - sentamount;
+            const newReciverBlance = reciverBlanace + sentamount;
+            console.log(newSenderblance);
 
-          const updatedBlanced = await User.findByIdAndUpdate(
-            req.params.id,
+            const updatedBlanced = await User.findByIdAndUpdate(
+              req.params.id,
 
-            {
-              $set: { "wallet.balance": newSenderblance },
-            },
-            { new: true }
-          );
-          const reciverId = req.body.id;
-          ///update the sende data
-          const updatethearray = await User.findByIdAndUpdate(
-            req.params.id,
+              {
+                $set: { "wallet.balance": newSenderblance },
+              },
+              { new: true }
+            );
+            const reciverId = req.body.id;
+            ///update the sende data
+            const updatethearray = await User.findByIdAndUpdate(
+              req.params.id,
 
-            {
-              $push: {
-                "wallet.sends": {
-                  $each: [
-                    {
-                      amountsent: sentamount,
-                      reciverAc: reciverId,
-                      receiverNmae: req.body.wallet.sends[0].receiverNmae,
-                    },
-                  ],
+              {
+                $push: {
+                  "wallet.sends": {
+                    $each: [
+                      {
+                        amountsent: sentamount,
+                        reciverAc: reciverId,
+                        receiverNmae: req.body.wallet.sends[0].receiverNmae,
+                      },
+                    ],
+                  },
                 },
               },
-            },
-            { new: true }
-          );
+              { new: true }
+            );
 
-          ///reciver's   data process and ssaing the data needed
+            ///reciver's   data process and ssaing the data needed
 
-          const reciverupdatedBlance = await User.findByIdAndUpdate(
-            req.body.id,
-            { $set: { "wallet.balance": newReciverBlance } }
-          );
+            const reciverupdatedBlance = await User.findByIdAndUpdate(
+              req.body.id,
+              { $set: { "wallet.balance": newReciverBlance } }
+            );
 
-          const updaterecivedarraydata = await User.findByIdAndUpdate(
-            req.body.id,
-            {
-              $push: {
-                "wallet.receives": {
-                  $each: [
-                    {
-                      amountRecived: sentamount,
-                      SenderuserId: req.params.id,
-                      senderNmae: checkh.displayName,
-                    },
-                  ],
+            const updaterecivedarraydata = await User.findByIdAndUpdate(
+              req.body.id,
+              {
+                $push: {
+                  "wallet.receives": {
+                    $each: [
+                      {
+                        amountRecived: sentamount,
+                        SenderuserId: req.params.id,
+                        senderNmae: checkh.displayName,
+                      },
+                    ],
+                  },
                 },
               },
-            },
 
-            { new: true }
-          );
-          res.status(200).json(updatethearray);
+              { new: true }
+            );
+            res.status(200).json(updatethearray);
+          }
+        } catch (err) {
+          next(err);
         }
-      } catch (err) {
-        next(err);
       }
     }
+  } catch (err) {
+    res.status(404).json("user not found");
   }
 };
 /// new funcion for send money

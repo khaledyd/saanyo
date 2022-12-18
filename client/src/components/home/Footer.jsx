@@ -42,7 +42,7 @@ const Footer = () => {
           }}
         >
           {" "}
-          Simple steps may lead you to your greatest experience
+          Simple steps may lead to your greatest experience
         </Typography>
         <Box
           sx={{
@@ -137,7 +137,7 @@ const Footer = () => {
               color: "#fff",
             }}
           >
-   The fastest payment gateway for mobile money systems
+The fastest payment gateway for mobile money systems
           </Typography>
           <Box
             sx={{

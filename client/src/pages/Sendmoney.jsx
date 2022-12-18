@@ -18,25 +18,32 @@ const Signup = () => {
   const path = locations.pathname.split("/")[2];
 
   const [seuccess, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [iderror, setiderror] = useState(false);
 
   const [amountsent, setamountsent] = useState(null);
   const [receiverNmae, setreceiverNmae] = useState();
   const [id, setid] = useState("");
   const [reciverAc, setreciverAc] = useState(id);
+  const [userdata, setuserdata] = useState("");
+  const [sender, setSender] = useState({});
 
   useEffect(() => {
     const fechorder = async () => {
       const reciverdata = await axios.get(`/users/find/${id}`);
-      console.log(reciverdata);
+      const fechuser = await axios.get(`/users/find/${id}`);
+      setuserdata(fechuser.data._id);
+      const current = await axios.get(`/users/find/${currentUser._id}`);
+      setSender(current.data);
     };
     fechorder();
-  }, [id]);
+  }, [id, currentUser._id]);
 
   const balances = currentUser.wallet.balance;
+  console.log(balances);
   const handlesubmit = async (e) => {
     e.preventDefault();
     const wallet = {
-
       sends: [
         {
           amountsent: Number(amountsent),
@@ -46,8 +53,14 @@ const Signup = () => {
         },
       ],
     };
-    const fechuser = await axios.get(`/users/find/${id}`);
-    if (fechuser) {
+
+    console.log(userdata);
+    if (sender.wallet.balance < amountsent) {
+      setError(true);
+    } else if (id !== userdata) {
+      console.log("did not receive");
+      setiderror(true);
+    } else {
       try {
         const res = await axios.put(`/users/sendMoney/${senderId}`, {
           id,
@@ -58,8 +71,6 @@ const Signup = () => {
       } catch (err) {
         console.log(err);
       }
-    } else {
-      console.log("did not receive");
     }
   };
 
@@ -156,6 +167,16 @@ const Signup = () => {
                 }}
                 onChange={(e) => setid(e.target.value)}
               />
+              {iderror && (
+                <Typography
+                  sx={{
+                    width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
+                    color: "red",
+                  }}
+                >
+                  account does not exist
+                </Typography>
+              )}
               <TextField
                 id="outlined-basic"
                 label="amount"
@@ -167,7 +188,17 @@ const Signup = () => {
                 }}
                 onChange={(e) => setamountsent(e.target.value)}
               />
-              
+              {error && (
+                <Typography
+                  sx={{
+                    width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
+                    color: "red",
+                  }}
+                >
+                  insufficient funds
+                </Typography>
+              )}
+
               <TextField
                 id="outlined-basic"
                 label="name of the reciver"
@@ -176,6 +207,7 @@ const Signup = () => {
                 sx={{
                   width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
                   marginTop: "10px",
+                  color: "red",
                 }}
                 name="buyernme"
                 onChange={(e) => setreceiverNmae(e.target.value)}
@@ -202,15 +234,7 @@ const Signup = () => {
                   sx={{
                     marginLeft: "-70px",
                   }}
-                >
-                  <Typography
-                    sx={{
-                      color: "#7743DB",
-                    }}
-                  >
-                    Cencel
-                  </Typography>
-                </Box>
+                ></Box>
               </Box>
             </Box>
           </Box>

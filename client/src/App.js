@@ -16,9 +16,7 @@ import ForgetPassword from "./pages/ForgetPassword";
 import Updatepassword from "./pages/Updatepassword";
 import MinitransectionsRecived from "./components/dashboard/MinitransectionsRecived";
 
-
 function App() {
-
   const { currentUser } = useSelector((state) => state.user);
   return (
     <div className="App">
@@ -61,7 +59,10 @@ function App() {
             element={currentUser ? <Settings /> : <Login />}
           />
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
-          <Route path="/Updatepassword/:id" element={<Updatepassword />} />
+          <Route
+            path="/Updatepassword"
+            element={currentUser ? <Updatepassword /> : <Login />}
+          />
           <Route
             path="/MinitransectionsRecived"
             element={<MinitransectionsRecived />}

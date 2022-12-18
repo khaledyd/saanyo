@@ -26,7 +26,10 @@ const Sidebar = () => {
           sx={{
             display: "flex",
             alignItems: "center",
+            cursor: "pointer"
+            
           }}
+          onClick={() => navigate("/")}
         >
           <img
             src="./images/home.png"
@@ -53,7 +56,10 @@ const Sidebar = () => {
             display: "flex",
             alignItems: "center",
             marginTop: "20px",
+            cursor:"pointer"
           }}
+          onClick={() => navigate("/dashboard")}
+
         >
           <img
             src="./images/transec.png"
@@ -104,34 +110,7 @@ const Sidebar = () => {
             Settings
           </Typography>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            marginTop: "20px",
-          }}
-        >
-          <img
-            src="./images/store.png"
-            alt="store"
-            style={{
-              width: "40px",
-              height: "40px",
-            }}
-            onClick={() => navigate("/Storedashboard")}
-          />
-          <Typography
-            sx={{
-              marginLeft: "10px",
-              color: "#3C4263",
-              fontSize: "18px",
 
-              fontFamily: "Poppins, sans-serif",
-            }}
-          >
-            Store
-          </Typography>
-        </Box>
         <Box
           sx={{
             display: "flex",
@@ -202,6 +181,7 @@ const Sidebar = () => {
           marginLeft: "5%",
           display: "flex",
           alignItems: "center",
+          cursor: "pointer"
         }}
         onClick={() => dispatch(logout())}
       >

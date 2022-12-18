@@ -5,15 +5,13 @@ import Nav from "../components/home/Nav";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginFailure, loginStart, loginSuccess } from "../Redux/userSlice";
 import { useLocation } from "react-router-dom";
 
 const Login = () => {
-  const locations = useLocation();
-  console.log(locations);
-  const useriD = locations.state.userdata._id;
-  console.log(useriD);
+  const { currentUser } = useSelector((state) => state.user);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [confirmPassword, setConfrimpasword] = useState("");
@@ -21,12 +19,13 @@ const Login = () => {
 
   const chanepassword = async (e) => {
     e.preventDefault();
-    if (password) {
+    if (password === confirmPassword) {
       try {
-        const res = await axios.put(`/users/${useriD}`, {
+        const res = await axios.put(`/users/${currentUser._id}`, {
+          userId: currentUser._id,
           password: password,
         });
-        console.log(res.data);
+        console.log(res);
       } catch (err) {
         console.error(err);
       }

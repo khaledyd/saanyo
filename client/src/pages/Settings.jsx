@@ -14,6 +14,7 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+
   const navigate = useNavigate();
 
   const handlesubmit = async (e) => {
@@ -21,6 +22,7 @@ const Signup = () => {
     if (password) {
       try {
         const res = await axios.put(`/users/${currentUser._id}`, {
+          userId: currentUser._id,
           email: email,
           password: password,
           displayName: displayName,
@@ -60,7 +62,7 @@ const Signup = () => {
             variant="h4"
             sx={{
               color: "#7743DB",
-              marginBottom:"20px"
+              marginBottom: "20px",
             }}
           >
             Update Account

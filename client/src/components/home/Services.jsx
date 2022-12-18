@@ -114,8 +114,8 @@ const Services = () => {
               height: "max-content",
             }}
           >
-            Add the product details And create the product Url all the
-            transactions Of that order you canManage with that single url
+            Add the product details and create the product URL for all the You
+            can manage all transactions for that order through one URL.
           </Typography>
         </Box>
         <Box
@@ -173,8 +173,8 @@ const Services = () => {
               height: "max-content",
             }}
           >
-            With simple steps send a money With saanyors and receive money From
-            them . a fast way you can experience
+            Send money to Saanyors and receive money from them in a few simple
+            steps. A fast way to experience
           </Typography>
         </Box>
         <Box
@@ -232,8 +232,8 @@ const Services = () => {
               height: "max-content",
             }}
           >
-            Your payment getaway with your Local money system just buy with
-            Saanyo , your payment gateway Partner
+            Your payment will be processed using the local money system. Buy
+            with Saanyo, your payment gateway partner.
           </Typography>
         </Box>
       </Box>

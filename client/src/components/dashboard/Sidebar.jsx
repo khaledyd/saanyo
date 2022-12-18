@@ -57,6 +57,7 @@ const Sidebar = () => {
             alignItems: "center",
             marginTop: "20px",
             cursor: "pointer",
+            hover: {},
           }}
           onClick={() => navigate("/settings")}
         >
@@ -86,7 +87,9 @@ const Sidebar = () => {
             display: "flex",
             alignItems: "center",
             marginTop: "20px",
+            cursor: "pointer",
           }}
+          onClick={() => navigate("/Storedashboard")}
         >
           <img
             src="./images/store.png"
@@ -179,6 +182,7 @@ const Sidebar = () => {
           marginLeft: "5%",
           display: "flex",
           alignItems: "center",
+          cursor: "pointer",
         }}
         onClick={() => dispatch(logout())}
       >

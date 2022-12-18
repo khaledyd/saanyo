@@ -199,6 +199,10 @@ const Nav = ({ handleOrder, orders, user }) => {
                   lg: "0px",
                   md: "0px",
                 },
+                "&:hover": {
+                backgroundColor: "#3C4263",
+                color: "#fff",
+              },
               }}
               onClick={handleOrder}
             >
@@ -227,6 +231,10 @@ const Nav = ({ handleOrder, orders, user }) => {
                   lg: "0px",
                   md: "0px",
                 },
+                "&:hover": {
+                backgroundColor: "#3C4263",
+                color: "#fff",
+              },
               }}
               onClick={() => navigate("/orders")}
             >

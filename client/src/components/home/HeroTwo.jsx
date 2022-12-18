@@ -1,7 +1,9 @@
 import { Box, Button, Typography } from "@mui/material";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const HeroTwo = () => {
+  const navigate = useNavigate();
   return (
     <Box
       sx={{
@@ -69,7 +71,14 @@ const HeroTwo = () => {
           color: "white",
           textTransform: "unset !important",
           marginLeft: "20px",
+          "&:hover": {
+                backgroundColor: "#3C4263",
+                color: "#fff",
+              },
+
         }}
+        onClick={() => navigate("/dashboard")}
+
       >
         Get started
       </Button>

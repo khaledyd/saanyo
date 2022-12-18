@@ -59,6 +59,11 @@ const Nav = ({ userdata, sidebar }) => {
                 color: "white",
                 textTransform: "unset !important",
                 marginRight: "10px",
+                "&:hover": {
+                  backgroundColor: "#3C4263",
+                  color: "#fff",
+                },
+                cursor: "pointer",
               }}
             >
               <PaymentIcon
@@ -80,12 +85,16 @@ const Nav = ({ userdata, sidebar }) => {
                 textTransform: "unset !important",
                 marginRight: "10px",
                 border: "1px solid ##3C4263",
-                marginTop :{
-                  xs:"10px",
-                  sm:"0px",
-                  lg :"0px",
-                  md:"0px"
-                }
+                marginTop: {
+                  xs: "10px",
+                  sm: "0px",
+                  lg: "0px",
+                  md: "0px",
+                },
+                "&:hover": {
+                backgroundColor: "#3C4263",
+                color: "#fff",
+              },
               }}
               onClick={() => navigate("/StoreDashboard")}
             >
