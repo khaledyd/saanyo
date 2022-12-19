@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
+import  path from "path";
 
 const app = express();
 dotenv.config();
@@ -24,11 +25,12 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 
-app.use(express.static("client/build"));
-
-app.get("*", (req, res) =>
-  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
-);
+if (process.env.NODE_ENV === 'production') {
+  //*Set static folder
+  app.use(express.static('client/build'));
+  
+  app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'client', 'build','index.html')));
+}
 
 //error handler
 app.use((err, req, res, next) => {
