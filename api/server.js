@@ -5,11 +5,12 @@ import userRoutes from "./routes/users.js";
 import authRoutes from "./routes/auth.js";
 import path from "path";
 
-
 const app = express();
 dotenv.config();
 
+
 const connect = async () => {
+  mongoose.set('strictQuery', true);
   await mongoose
     .connect(process.env.MONG_URL)
     .then(() => {
