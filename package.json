@@ -1,32 +1,14 @@
 {
-  "name": "server",
+  "name": "saanyo",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "type": "module",
+  "description": "payment app ",
+  "main": "index.js",
   "scripts": {
-    "build": " npm install  && cd ../clinet && npm install && npm run build",
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "npm start --prefix client",
-    "clientinstall": "npm install --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "render-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build -- prefix client"
+    "build": "cd server && npm install  && cd ../client && npm install && npm run build",
+    "start": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+
   "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.0.1",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.20.1",
-    "cookie-parser": "^1.4.6",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.4.3",
-    "nodemailer": "^6.8.0",
-    "nodemon": "^2.0.19",
-    "path": "^0.12.7"
-  }
+  "license": "ISC"
 }
