@@ -16,11 +16,11 @@ import Storenav from "../components/storedashboard/Sorenav";
 import Lastsales from "../components/storedashboard/Lastsales";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useSelector , useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Sidebar from "../components/storedashboard/Sidebar";
 import Allnav from "./Allnav";
 import Storedata from "../components/storedashboard/Storedata";
-
+import { axiosInstance } from "../config";
 
 const Dashboard = () => {
   const dipatch = useDispatch();
@@ -41,37 +41,44 @@ const Dashboard = () => {
     setCencel(setIsOpen(false));
   };
   const handleOrder = () => [setIsOpen(!isOpen)];
+
   const handlecrateOrder = async (e) => {
     e.preventDefault();
     const userId = currentUser._id;
-    console.log(userId);
-    const data = {
+
+    const orderdata = {
       price,
       productTitle,
     };
     try {
-      const res = await axios.post(`/users/createorder/${userId}`, data);
+      const res = await axiosInstance.post(`/users/createorder/${userId}`, orderdata);
       setIsOpen(false);
-      console.log(res.data);
+
     } catch (err) {
-      console.log(err);
+ 
     }
   };
   useEffect(() => {
     const fechorder = async () => {
-      const res = await axios.get(`/users/getorder/${currentUser._id}`);
-      const ress = await axios.get(`/users/find/${currentUser._id}`);
+      const res = await axiosInstance.get(
+        `/users/getorder/${currentUser._id}`,
+        {
+          withCredentials: true,
+        }
+      );
+      const ress = await axiosInstance.get(`/users/find/${currentUser._id}`, {
+        withCredentials: true,
+      });
       seuser(ress.data.sellerBlance);
       setOrders(res.data);
-      console.log(res.data);
-      console.log(ress.data);
+   
     };
     fechorder();
   }, [currentUser._id]);
   const handlesidebar = () => {
     setSidebar(!sidebar);
   };
-  const sale = orders.sales
+  const sale = orders.sales;
 
   return (
     <Box
@@ -403,10 +410,11 @@ const Dashboard = () => {
                   </TableRow>
                 </TableHead>
               </Table>
-              <Box sx={{
-                width:'100%',
-          
-              }}>
+              <Box
+                sx={{
+                  width: "100%",
+                }}
+              >
                 <Box>
                   <Box
                     sx={{
@@ -433,7 +441,7 @@ const Dashboard = () => {
                     }}
                   >
                     {orders.map((or) => {
-                      return <Storedata key = {or.sales._id} orders={or} />;
+                      return <Storedata key={or.sales._id} orders={or} />;
                     })}
                   </Box>
                 </Box>

@@ -1,38 +1,40 @@
 import React from "react";
-import {  Box } from "@mui/system";
+import { Box } from "@mui/system";
 import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import axios from "axios";
+
 import Nav from "../components/home/Nav";
-import { useNavigate } from "react-router-dom";
+
 import { useSelector } from "react-redux";
+import { axiosInstance } from "../config";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const Navigate = useNavigate()
   const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser);
+
   const [displayName, setdisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-
-  const navigate = useNavigate();
 
   const handlesubmit = async (e) => {
     e.preventDefault();
     if (password) {
       try {
-        const res = await axios.put(`/users/${currentUser._id}`, {
+        const res = await axiosInstance.put(`/users/${currentUser._id}`, {
+          withCredentials: true,
           userId: currentUser._id,
           email: email,
           password: password,
           displayName: displayName,
         });
-        console.log(res.data);
+        Navigate("/dashboard");
+
       } catch (err) {
-        console.log(err);
+
       }
     } else {
-      console.log("Error");
+
     }
   };
 

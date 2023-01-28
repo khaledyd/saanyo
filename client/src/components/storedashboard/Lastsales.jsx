@@ -11,7 +11,7 @@ import { Typography } from "@mui/material";
 
 export default function BasicTable({ orders }) {
   const salesdata = orders.sales;
-  console.log(salesdata.length);
+
 
   return (
     <Box

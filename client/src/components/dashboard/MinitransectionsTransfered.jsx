@@ -6,7 +6,7 @@ import sendMo from "../storedashboard/images/sendMo.png";
 import { useState } from "react";
 const MinitransectionsRecived = ({ sends }) => {
   const [more, setMore] = useState(false);
-  console.log(sends);
+
   const handlechange = () => {
     setMore(!more);
   };

@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import Allnav from "./Allnav";
 import axios from "axios";
+import { axiosInstance } from "../config";
 
 import SingleData from "../components/singlesale/SingleData";
 
@@ -16,23 +17,20 @@ const Dashboard = () => {
   const [order, setOrder] = useState({});
 
   const location = useLocation();
-  console.log(location);
+
   const path = location.pathname.split("/")[2];
   const orderbalance = location.state.orderRevenue;
-  console.log(orderbalance);
-
 
   useEffect(() => {
     const fechorder = async () => {
-      const res = await axios.get(`/users/getorderbyid/${path}`);
-
-      console.log(res.data);
+      const res = await axiosInstance.get(`/users/getorderbyid/${path}`, {});
 
       setOrder(res.data);
     };
     fechorder();
   }, [path]);
-  console.log(order);
+
+
 
   const salesdata = order.sales;
 
@@ -90,12 +88,12 @@ const Dashboard = () => {
               lg: "100%",
               md: "100%",
             },
-            display:{
-              xs:"block",
-              sm:"block",
-              md:"none",
-              lg:"none",
-            }
+            display: {
+              xs: "block",
+              sm: "block",
+              md: "none",
+              lg: "none",
+            },
           }}
         >
           <SingleData salesdata={salesdata} />

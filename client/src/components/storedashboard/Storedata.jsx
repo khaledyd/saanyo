@@ -7,7 +7,7 @@ import { useState } from "react";
 const MinitransectionsRecived = ({ orders }) => {
   const [more, setMore] = useState(false);
   const sales = orders.sales;
-  console.log(sales);
+
 
   const handlechange = () => {
     setMore(!more);

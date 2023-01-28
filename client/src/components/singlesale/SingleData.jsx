@@ -13,7 +13,7 @@ const MinitransectionsRecived = ({ salesdata }) => {
   const handlechange = () => {
     setMore(!more);
   };
-  console.log(salesdata);
+
   const allsales = "Hi";
 
   const newarray = allsales;
@@ -23,7 +23,7 @@ const MinitransectionsRecived = ({ salesdata }) => {
     final.push(newone);
   }
 
-  console.log(final);
+
   const initialValue = 0;
   const orderrevenue = final.reduce(
     (accumulator, currentValue) => accumulator + currentValue,

@@ -10,8 +10,8 @@ import { Box } from "@mui/system";
 import { Typography } from "@mui/material";
 
 export default function BasicTable({ receives }) {
-  const datas = [receives];
-  console.log(datas);
+ 
+
 
   return (
     <Box

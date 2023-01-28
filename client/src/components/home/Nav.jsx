@@ -181,14 +181,7 @@ const Nav = () => {
               },
             }}
           >
-            <Typography
-              sx={{
-                padding: "10px 20px",
-                fontSize: "20px",
-              }}
-            >
-              Producrs
-            </Typography>
+      
             <Typography
               sx={{
                 padding: "10px 20px",
@@ -197,14 +190,7 @@ const Nav = () => {
             >
               About us
             </Typography>
-            <Typography
-              sx={{
-                padding: "10px 20px",
-                fontSize: "20px",
-              }}
-            >
-              Help
-            </Typography>
+      
             <Typography
               sx={{
                 padding: "10px 20px",

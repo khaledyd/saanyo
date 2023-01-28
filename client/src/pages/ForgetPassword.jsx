@@ -2,12 +2,13 @@ import React from "react";
 import { borderColor, Box } from "@mui/system";
 import { Button, TextField, Typography } from "@mui/material";
 import Nav from "../components/home/Nav";
-import axios from "axios";
+import {axiosInstance} from "../config"
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { loginFailure, loginStart, loginSuccess } from "../Redux/userSlice";
 import { useDispatch } from "react-redux";
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,14 +22,15 @@ const Login = () => {
   const [change, setChange] = useState(false);
   const [newone, setOneone] = useState(false);
   const [user, setUser] = useState({});
+  
 
   const handlesubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/auth/SendOtb", { email });
+      const res = await axiosInstance.post("/auth/SendOtb", { email });
       setChange(true);
     } catch (err) {
-      console.log(err);
+  
       dispatch(loginFailure(err));
  
     }
@@ -37,7 +39,8 @@ const Login = () => {
   const handleupdate = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/auth/verify", {
+      const res = await axiosInstance.post("/auth/verify", {
+        
         email,
 
         code,
@@ -47,31 +50,31 @@ const Login = () => {
       setOneone(true);
       navigate("/Updatepassword");
 
-      console.log(res.data);
+
     } catch (err) {
-      console.log(err);
+
       setError(true);
     }
   };
 
   const useriD = user._id;
   const datas = user;
-  console.log(datas);
-  console.log(useriD);
+
   const chanepassword = async (e) => {
     e.preventDefault();
     if (password) {
       try {
-        const res = await axios.put(`/users/${useriD}`, {
+        const res = await axiosInstance.put(`/users/${useriD}`, {
+          withCredentials: true,
           Id: useriD,
           password: password,
         });
-        console.log(res.data);
+  
       } catch (err) {
-        console.error(err);
+   
       }
     } else {
-      console.log("passwrod and confiirm password must be same");
+ 
     }
   };
   return (

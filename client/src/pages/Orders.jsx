@@ -1,6 +1,6 @@
 import { Box, Table, TableCell, TableHead, TableRow } from "@mui/material";
 import React from "react";
-
+import {axiosInstance} from "../config"
 import OrderLists from "../components/orders/OrderLists";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -16,9 +16,10 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fechorder = async () => {
-      const res = await axios.get(`/users/getorder/${currentUser._id}`);
+      const res = await axiosInstance.get(`/users/getorder/${currentUser._id}` , {
+        withCredentials: true,
+      });
       setOrders(res.data);
-      console.log(res.data);
     };
     fechorder();
   }, [currentUser._id]);

@@ -21,9 +21,8 @@ const Nav = ({ handleOrder, orders, user }) => {
     (accumulator, currentValue) => accumulator + currentValue,
     initialValue
   );
-  console.log(finalsales);
 
-  console.log(allorders);
+
   return (
     <Box
       sx={{

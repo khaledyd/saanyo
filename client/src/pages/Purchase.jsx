@@ -1,26 +1,27 @@
 import React from "react";
-import {  Box } from "@mui/system";
+import { Box } from "@mui/system";
 import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import axios from "axios";
+
 import Nav from "../components/home/Nav";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import DoneIcon from "@mui/icons-material/Done";
+import { axiosInstance } from "../config";
 
 const Signup = () => {
   const { currentUser } = useSelector((state) => state.user);
-
 
   const buyerId = currentUser._id;
   const locations = useLocation();
 
   const path = locations.pathname.split("/")[2];
   const [balance, setbalance] = useState("");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   const [order, setOrder] = useState([]);
+  const [price ,setPrice] = useState()
   const [sales, setSales] = useState([
     {
       quantity: 1,
@@ -29,32 +30,39 @@ const Signup = () => {
   ]);
   const [seuccess, setSuccess] = useState(false);
   const [quantity, setquantity] = useState();
+  
   const [buyernme, setbuyernme] = useState("");
   const [buyerPhoneNumber, setbuyerPhoneNumber] = useState();
   const [buyerAddress, setbuyerAddress] = useState("");
   const [total, setTotal] = useState(0);
-  const [orderdata, setOrderdata] = useState({});
+  const [orderdata, setOrderdata] = useState();
   const totals = orderdata * quantity;
-  console.log(totals);
+
 
   const sellerid = order.userId;
   useEffect(() => {
     const fechorder = async () => {
-      const res = await axios.get(`/users/getorderbyid/${path}`);
+      const res = await axiosInstance.get(`/users/getorderbyid/${path}`, {
+        withCredentials: true,
+
+      });
+      setPrice(res.data)
       setOrderdata(res.data.price);
-      const sellerdata = await axios.get(`/users/find/${res.data.userId}`);
-      const buyerdata = await axios.get(`/users/find/${currentUser._id}`);
+      const sellerdata = await axiosInstance.get(
+        `/users/find/${res.data.userId}`
+      );
+      const buyerdata = await axiosInstance.get(
+        `/users/find/${currentUser._id}`,
+        {
+          withCredentials: true,
+        }
+      );
       setbalance(buyerdata.data.wallet.balance);
 
       setOrder(res.data);
     };
     fechorder();
   }, [path, currentUser._id]);
-  const handleChange = (e) => {
-    setSales((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -71,7 +79,7 @@ const Signup = () => {
       setError(true);
     } else {
       try {
-        const res = await axios.put(
+        const res = await axiosInstance.put(
           "/users/buysomethingnow/" + path,
 
           {
@@ -82,9 +90,8 @@ const Signup = () => {
         );
         setSuccess(true);
         setSales(res.data);
-        console.log(res.data);
       } catch (err) {
-        console.log(err);
+ 
       }
     }
   };
@@ -270,7 +277,7 @@ const Signup = () => {
                 <Typography
                   sx={{
                     width: { lg: "70%", md: "70%", sm: "100%", xs: "100%" },
-                    color:"red"
+                    color: "red",
                   }}
                 >
                   {" "}

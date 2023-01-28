@@ -4,18 +4,17 @@ import { Button, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
 import Nav from "../components/home/Nav";
-import {  useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import DoneIcon from "@mui/icons-material/Done";
+import { axiosInstance } from "../config";
 
 const Signup = () => {
   const { currentUser } = useSelector((state) => state.user);
 
   const senderId = currentUser._id;
   const locations = useLocation();
-
-
 
   const [seuccess, setSuccess] = useState(false);
   const [error, setError] = useState(false);
@@ -30,17 +29,26 @@ const Signup = () => {
 
   useEffect(() => {
     const fechorder = async () => {
-      const reciverdata = await axios.get(`/users/find/${id}`);
-      const fechuser = await axios.get(`/users/find/${id}`);
+      const reciverdata = await axiosInstance.get(`/users/find/${id}`, {
+        withCredentials: true,
+      });
+      const fechuser = await axiosInstance.get(`/users/find/${id}`, {
+        withCredentials: true,
+      });
       setuserdata(fechuser.data._id);
-      const current = await axios.get(`/users/find/${currentUser._id}`);
+      const current = await axiosInstance.get(
+        `/users/find/${currentUser._id}`,
+        {
+          withCredentials: true,
+        }
+      );
       setSender(current.data);
     };
     fechorder();
   }, [id, currentUser._id]);
 
   const balances = currentUser.wallet.balance;
-  console.log(balances);
+
   const handlesubmit = async (e) => {
     e.preventDefault();
     const wallet = {
@@ -54,22 +62,20 @@ const Signup = () => {
       ],
     };
 
-    console.log(userdata);
     if (sender.wallet.balance < amountsent) {
       setError(true);
     } else if (id !== userdata) {
-      console.log("did not receive");
       setiderror(true);
     } else {
       try {
-        const res = await axios.put(`/users/sendMoney/${senderId}`, {
+        const res = await axiosInstance.put(`/users/sendMoney/${senderId}`, {
           id,
           wallet,
         });
         setSuccess(true);
-        console.log(res.data.wallet.sends);
+     
       } catch (err) {
-        console.log(err);
+   
       }
     }
   };

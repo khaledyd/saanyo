@@ -7,6 +7,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginFailure, loginStart, loginSuccess } from "../Redux/userSlice";
+import {axiosInstance} from "../config"
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,12 +25,12 @@ const Login = () => {
       password,
     };
     try {
-      const res = await axios.post("/auth/signin/", data);
+      const res = await axiosInstance.post("/auth/signin/", data);
 
       navigate("/");
       dispatch(loginSuccess(res.data));
     } catch (err) {
-      console.log(err);
+
       dispatch(loginFailure(err));
       setError(true);
     }

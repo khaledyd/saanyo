@@ -23,7 +23,7 @@ export default function BasicTable({ orders }) {
     final.push(newone);
   }
 
-  console.log(final);
+
   const initialValue = 0;
   const finalarray = final.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
@@ -37,7 +37,7 @@ export default function BasicTable({ orders }) {
       },
     });
   };
-  console.log(finalarray);
+
   return (
     <Box
       sx={{

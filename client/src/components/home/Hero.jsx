@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const Hero = () => {
-
   const navigate = useNavigate();
   return (
     <Box
@@ -69,22 +68,24 @@ const Hero = () => {
             fontWeight: "bold",
           }}
         >
-          With the{" "}
+          With{" "}
           <strong
             style={{
               color: "#7743DB",
             }}
           >
-            little
+            minimal
           </strong>{" "}
-          effort but highly effective 
+          effort but highly impactful
           <strong
             style={{
               color: "#7743DB",
             }}
-          > experiences
+          >
+            {" "}
+            results
           </strong>
-          !!!
+          !
         </Typography>
         <Typography
           sx={{
@@ -108,9 +109,9 @@ const Hero = () => {
               color: "#7743DB",
             }}
           >
-            the difference. The greatest experience
+            the difference.
           </strong>{" "}
-          is the one you haven't tried yet !
+          The ultimate experience awaits, as you have yet to try it!
         </Typography>
         <Button
           sx={{

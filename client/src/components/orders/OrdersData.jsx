@@ -23,7 +23,7 @@ const MinitransectionsRecived = ({ orders }) => {
     final.push(newone);
   }
 
-  console.log(final);
+
   const initialValue = 0;
   const orderrevenue = final.reduce(
     (accumulator, currentValue) => accumulator + currentValue,

@@ -59,10 +59,7 @@ function App() {
             element={currentUser ? <Settings /> : <Login />}
           />
           <Route path="/ForgetPassword" element={<ForgetPassword />} />
-          <Route
-            path="/Updatepassword"
-            element={<Updatepassword />}
-          />
+          <Route path="/Updatepassword" element={<Updatepassword />} />
           <Route
             path="/MinitransectionsRecived"
             element={<MinitransectionsRecived />}

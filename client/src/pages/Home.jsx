@@ -8,6 +8,7 @@ import Services from "../components/home/Services";
 const Home = () => {
   return (
     <div>
+
       <Nav />
       <Hero />
       <Services />
